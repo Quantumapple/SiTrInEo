@@ -1,0 +1,7 @@
+# Macro file
+# 
+# To be run preferably in batch, without graphics:
+#
+#/run/numberOfWorkers 4
+/run/initialize
+/run/beamOn 500

@@ -1,0 +1,68 @@
+#
+# This file permits to customize, with commands,
+# the menu bar of the G4UIXm, G4UIQt, G4UIWin32 sessions.
+# It has no effect with G4UIterminal.
+#
+#
+# Add icons of general interest
+#
+/control/execute icons.mac
+#
+# File menu :
+/gui/addMenu file File
+/gui/addButton file Quit exit
+#
+# Run menu :
+#/gui/addMenu run Run
+#/gui/addButton run "beamOn 1" "/run/beamOn 1"
+#/gui/addButton run run1 "/control/execute run1.mac"
+#
+# Gun menu :
+/gui/addMenu gun GunEnergy
+/gui/addButton gun "50 MeV"     "/gun/energy    50 MeV"
+/gui/addButton gun "100 MeV"    "/gun/energy   100 MeV"
+/gui/addButton gun "450 MeV"    "/gun/energy   450 MeV"
+/gui/addButton gun "500 MeV"    "/gun/energy   500 MeV"
+/gui/addButton gun "1.0 GeV"    "/gun/energy   1.0 GeV"
+/gui/addButton gun "5.0 GeV"    "/gun/energy   5.0 GeV"
+/gui/addButton gun "9.0 GeV"    "/gun/energy   9.0 GeV"
+/gui/addButton gun "120.0 GeV"  "/gun/energy 120.0 GeV"
+
+/gui/addMenu gun GunParticle
+/gui/addButton gun "e-"           "/gun/particle e-"
+/gui/addButton gun "e+"           "/gun/particle e+"
+/gui/addButton gun "pi+"          "/gun/particle pi+"
+/gui/addButton gun "pi-"          "/gun/particle pi-"
+/gui/addButton gun "K+"           "/gun/particle kaon+"
+/gui/addButton gun "K-"           "/gun/particle kaon-"
+/gui/addButton gun "proton"       "/gun/particle proton"
+/gui/addButton gun "anti-proton"  "/gun/particle anti_proton"
+/gui/addButton gun "pi0"          "/gun/particle pi0"
+/gui/addButton gun "neutron"      "/gun/particle neutron"
+
+#
+# Field menu :
+/gui/addMenu field Field
+/gui/addButton field "off"         "/globalField/setValue 0.0 0.0 0.0 tesla"
+/gui/addButton field "0.5 tesla Z" "/globalField/setValue 0.0 0.0 0.5 tesla"
+/gui/addButton field "1.5 tesla Z" "/globalField/setValue 0.0 0.0 1.5 tesla"
+/gui/addButton field "0.5 tesla X" "/globalField/setValue 0.5 0.0 0.0 tesla"
+/gui/addButton field "1.5 tesla X" "/globalField/setValue 1.5 0.0 0.0 tesla"
+/gui/addButton field "0.5 tesla Y" "/globalField/setValue 0.0 0.5 0.0 tesla"
+/gui/addButton field "1.5 tesla Y" "/globalField/setValue 0.0 1.5 0.0 tesla"
+
+
+#
+# Viewer menu :
+/gui/addMenu viewer Viewer
+/gui/addButton viewer "Set style surface" "/vis/viewer/set/style surface"
+/gui/addButton viewer "Set style wireframe" "/vis/viewer/set/style wireframe"
+/gui/addButton viewer "Refresh viewer" "/vis/viewer/refresh"
+/gui/addButton viewer "Update viewer (interaction or end-of-file)" "/vis/viewer/update"
+/gui/addButton viewer "Flush viewer (= refresh + update)" "/vis/viewer/flush"
+/gui/addButton viewer "Update scene" "/vis/scene/notifyHandlers"
+#
+# User defined icon :
+/gui/addIcon "Run beam on" user_icon "/run/beamOn 1" run.png 
+
+
