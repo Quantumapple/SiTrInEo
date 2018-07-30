@@ -27,6 +27,7 @@ To run in your own machine. You have to install pre-requisite libraries and prog
 <p> source Mimosa-private-setup.sh</p>
 </blockquote>
 
+### Common
 <li> Below commands are the same to both Lxplus and private machine </li>
 <blockquote>
 <p> cd MIMOSA\_DIGITIZER/trunk</p>
