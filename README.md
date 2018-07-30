@@ -7,7 +7,11 @@ There are two options to use MimosaSimu. <br>
 <blockquote>
 <p> source Mimosa-lxplus-setup.sh</p>
 </blockquote>
+</ol>
 
+
+
+<ol>
  <li> To run in your own machine. You have to install pre-requisite libraries and programs. </li>
   <ul>
    <li> Xerces-C(libxerces-c), qt, qt-devel, qt3, libXi, libGL </li>
