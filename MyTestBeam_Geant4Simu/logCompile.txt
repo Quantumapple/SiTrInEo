@@ -1,0 +1,207 @@
+[H[2Jmkdir: cannot create directory `/libcern/geant4/4.10.01.p01/geant4.10.01.p01/this_is_a_deliberate_dummy_path': Read-only file system
+mkdir: cannot create directory `/libcern/geant4/4.10.01.p01/geant4.10.01.p01/this_is_a_deliberate_dummy_path': Read-only file system
+make[1]: Entering directory `/home/visit/sitrineo/TestBeam_Geant4Simu/trunk/MimosaSimu'
+Cleaning up ...
+make[1]: Leaving directory `/home/visit/sitrineo/TestBeam_Geant4Simu/trunk/MimosaSimu'
+mkdir: cannot create directory `/libcern/geant4/4.10.01.p01/geant4.10.01.p01/this_is_a_deliberate_dummy_path': Read-only file system
+mkdir: cannot create directory `/libcern/geant4/4.10.01.p01/geant4.10.01.p01/this_is_a_deliberate_dummy_path': Read-only file system
+make[1]: Entering directory `/home/visit/sitrineo/TestBeam_Geant4Simu/trunk/MimosaSimu'
+Making dependency for file MimosaSimu.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/complex:43,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4Types.hh:67,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4ios.hh:39,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/globals.hh:49,
+                 from include/MimosaSimuDetectorConstruction.hh:34,
+                 from MimosaSimu.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuTrajectorySD.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/complex:43,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4Types.hh:67,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4ios.hh:39,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/globals.hh:49,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/digits_hits/hits/include/G4VHit.hh:33,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/digits_hits/detector/include/G4VSensitiveDetector.hh:33,
+                 from include/MimosaSimuTrajectorySD.hh:34,
+                 from src/MimosaSimuTrajectorySD.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuTrajectoryHit.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/iostream:39,
+                 from include/MimosaSimuTrajectoryHit.hh:34,
+                 from src/MimosaSimuTrajectoryHit.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuTrackerSD.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/complex:43,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4Types.hh:67,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4ios.hh:39,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/globals.hh:49,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/digits_hits/hits/include/G4VHit.hh:33,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/digits_hits/detector/include/G4VSensitiveDetector.hh:33,
+                 from include/MimosaSimuTrackerSD.hh:34,
+                 from src/MimosaSimuTrackerSD.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuTrackerHit.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/iostream:39,
+                 from include/MimosaSimuTrackerHit.hh:34,
+                 from src/MimosaSimuTrackerHit.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuSetup.cc ...
+In file included from /usr/include/features.h:378,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/RConfig.h:186,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/Riostream.h:27,
+                 from include/MimosaSimuSetup.hh:10,
+                 from src/MimosaSimuSetup.cc:3:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuRunAction.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/bits/stl_algobase.h:60,
+                 from /usr/include/c++/4.4/vector:61,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/g4tools/include/tools/histo/histo_data:7,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/g4tools/include/tools/histo/base_histo:11,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/g4tools/include/tools/histo/b1:7,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/g4tools/include/tools/histo/h1:7,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/g4tools/include/tools/histo/h1d:7,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/root/include/g4root_defs.hh:33,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/analysis/root/include/g4root.hh:33,
+                 from include/MimosaSimuRunAction.hh:34,
+                 from src/MimosaSimuRunAction.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuPrimaryGeneratorAction.cc ...
+In file included from /usr/include/features.h:378,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/RConfig.h:186,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/Riostream.h:27,
+                 from include/MimosaSimuSetup.hh:10,
+                 from include/MimosaSimuPrimaryGeneratorAction.hh:35,
+                 from src/MimosaSimuPrimaryGeneratorAction.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuHistoManager.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/iostream:39,
+                 from include/MimosaSimuTrackerHit.hh:34,
+                 from include/MimosaSimuHistoManager.hh:38,
+                 from src/MimosaSimuHistoManager.cc:35:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuEventAction.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/iostream:39,
+                 from include/MimosaSimuTrackerHit.hh:34,
+                 from include/MimosaSimuHistoManager.hh:38,
+                 from include/MimosaSimuEventAction.hh:35,
+                 from src/MimosaSimuEventAction.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuDetectorMessenger.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/complex:43,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4Types.hh:67,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4ios.hh:39,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/globals.hh:49,
+                 from include/MimosaSimuDetectorMessenger.hh:34,
+                 from src/MimosaSimuDetectorMessenger.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuDetectorConstruction.cc ...
+In file included from /usr/include/features.h:378,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/os_defines.h:39,
+                 from /usr/include/c++/4.4/i486-linux-gnu/64/bits/c++config.h:243,
+                 from /usr/include/c++/4.4/complex:43,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4Types.hh:67,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/G4ios.hh:39,
+                 from /libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/global/management/include/globals.hh:49,
+                 from include/MimosaSimuDetectorConstruction.hh:34,
+                 from src/MimosaSimuDetectorConstruction.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Making dependency for file src/MimosaSimuActionInitialization.cc ...
+In file included from /usr/include/features.h:378,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/RConfig.h:186,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/Riostream.h:27,
+                 from include/MimosaSimuSetup.hh:10,
+                 from include/MimosaSimuActionInitialization.hh:34,
+                 from src/MimosaSimuActionInitialization.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+Compiling MimosaSimuActionInitialization.cc ...
+In file included from /usr/include/features.h:378,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/RConfig.h:186,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/Riostream.h:27,
+                 from include/MimosaSimuSetup.hh:10,
+                 from include/MimosaSimuActionInitialization.hh:34,
+                 from src/MimosaSimuActionInitialization.cc:31:
+/usr/include/gnu/stubs.h:9:27: error: gnu/stubs-64.h: No such file or directory
+In file included from /libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:31,
+                 from include/MimosaSimuTrackerHit.hh:46,
+                 from include/MimosaSimuHistoManager.hh:38,
+                 from include/MimosaSimuActionInitialization.hh:35,
+                 from src/MimosaSimuActionInitialization.cc:31:
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h: In member function 'TRotation& TRotation::operator=(const TRotation&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h:222: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h: In member function 'Bool_t TRotation::operator==(const TRotation&) const':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h:235: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h: In member function 'Bool_t TRotation::operator!=(const TRotation&) const':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h:241: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h: In member function 'TRotation& TRotation::operator*=(const TRotation&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h:265: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h: In member function 'TRotation& TRotation::Transform(const TRotation&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TRotation.h:269: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+In file included from include/MimosaSimuTrackerHit.hh:46,
+                 from include/MimosaSimuHistoManager.hh:38,
+                 from include/MimosaSimuActionInitialization.hh:35,
+                 from src/MimosaSimuActionInitialization.cc:31:
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'void TLorentzVector::SetXYZM(Double_t, Double_t, Double_t, Double_t)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:338: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'void TLorentzVector::SetPtEtaPhiM(Double_t, Double_t, Double_t, Double_t)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:345: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'Double_t TLorentzVector::Mag() const':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:490: warning: declaration of 'mm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:93: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'Double_t TLorentzVector::Mt() const':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:502: warning: declaration of 'mm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:93: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'TLorentzVector& TLorentzVector::operator*=(const TRotation&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:582: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h: In member function 'TLorentzVector& TLorentzVector::Transform(const TRotation&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TLorentzVector.h:587: warning: declaration of 'm' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:101: warning: shadowed declaration is here
+In file included from /libcern/root/5.34.15/debian-6.0.8-i386/include/TClass.h:34,
+                 from /libcern/root/5.34.15/debian-6.0.8-i386/include/TTree.h:62,
+                 from include/MimosaSimuHistoManager.hh:44,
+                 from include/MimosaSimuActionInitialization.hh:35,
+                 from src/MimosaSimuActionInitialization.cc:31:
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h: In constructor 'TObjString::TObjString(const char*)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h:38: warning: declaration of 's' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:141: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h: In copy constructor 'TObjString::TObjString(const TObjString&)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h:39: warning: declaration of 's' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:141: warning: shadowed declaration is here
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h: In member function 'void TObjString::SetString(const char*)':
+/libcern/root/5.34.15/debian-6.0.8-i386/include/TObjString.h:49: warning: declaration of 's' shadows a global declaration
+/libcern/geant4/4.10.01.p01/geant4.10.01.p01//source/externals/clhep/include/CLHEP/Units/SystemOfUnits.h:141: warning: shadowed declaration is here
+make[1]: *** [/home/visit/geant4_workdir/tmp/Linux-g++/MimosaSimu/MimosaSimuActionInitialization.o] Error 1
+make[1]: Leaving directory `/home/visit/sitrineo/TestBeam_Geant4Simu/trunk/MimosaSimu'

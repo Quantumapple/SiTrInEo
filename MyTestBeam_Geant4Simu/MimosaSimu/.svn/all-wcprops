@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/CMOS/!svn/ver/1778/TestBeam_Geant4Simu/trunk/MimosaSimu
+END
+CMakeLists.txt.original
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/CMakeLists.txt.original
+END
+vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/vis.mac
+END
+startup.mac
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/startup.mac
+END
+gui.mac
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/gui.mac
+END
+init_vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/init_vis.mac
+END
+run1.mac
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/run1.mac
+END
+run2.mac
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/run2.mac
+END
+GNUmakefile
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/CMOS/!svn/ver/1778/TestBeam_Geant4Simu/trunk/MimosaSimu/GNUmakefile
+END
+run.png
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/run.png
+END
+MimosaSimu.cc
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/CMOS/!svn/ver/1589/TestBeam_Geant4Simu/trunk/MimosaSimu/MimosaSimu.cc
+END
+icons.mac
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/icons.mac
+END
+MimosaSimu.cc.backup
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/MimosaSimu.cc.backup
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/MimosaSimu/CMakeLists.txt
+END

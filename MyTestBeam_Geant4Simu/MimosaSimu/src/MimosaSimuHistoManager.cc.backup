@@ -1,0 +1,171 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+/// \file analysis/AnaEx02/src/HistoManager.cc
+/// \brief Implementation of the HistoManager class
+//
+// $Id: HistoManager.cc 74272 2013-10-02 14:48:50Z gcosmo $
+// GEANT4 tag $Name: geant4-09-04 $
+// 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#include "MimosaSimuHistoManager.hh"
+#include "TClonesArray.h"
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+MimosaSimuHistoManager::MimosaSimuHistoManager(MimosaSimuSetup* TheSetup) : fRootFile(0), 
+                                                                            fNtuple(0)
+{
+  
+  fSetup = TheSetup;
+  
+  // ntuple
+  fNtuple = 0;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+MimosaSimuHistoManager::~MimosaSimuHistoManager()
+{
+  if(fRootFile) delete fRootFile;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuHistoManager::book()
+{ 
+  // Creating a tree container to handle histograms and ntuples.
+  // This tree is associated to an output file.
+  //
+  TString ROOTName = fSetup->GetConfigFileName() + TString(".root");
+  G4String fileName = ROOTName.Data();
+  fRootFile = new TFile(fileName,"RECREATE");
+  if(!fRootFile) {
+    G4cout << " MimosaSimuHistoManager::book :" 
+           << " problem creating the ROOT TFile "
+           << G4endl;
+    return;
+  }
+
+  //create ntuple
+ 
+  fNtuple = new TTree("ntp1", "Hits");
+  fNtuple->SetAutoSave(100000000);
+ 
+  fNtuple->Branch("nHits",&nHits,"nHits/I");
+ 
+  fNtuple->Branch("HitTrackID",            HitTrackID,            "HitTrackID[nHits]/I");
+  fNtuple->Branch("HitTrackPDGCode",       HitTrackPDGCode,       "HitTrackPDGCode[nHits]/I");
+  fNtuple->Branch("HitTrackVertexPosX",    HitTrackVertexPosX,    "HitTrackVertexPosX[nHits]/D");
+  fNtuple->Branch("HitTrackVertexPosY",    HitTrackVertexPosY,    "HitTrackVertexPosY[nHits]/D");
+  fNtuple->Branch("HitTrackVertexPosZ",    HitTrackVertexPosZ,    "HitTrackVertexPosZ[nHits]/D");
+  
+  fNtuple->Branch("HitMimosaSensorID",     HitMimosaSensorID,     "HitMimosaSensorID[nHits]/I");
+  fNtuple->Branch("HitEdep",               HitEdep,               "HitEdep[nHits]/D");
+  fNtuple->Branch("HitPosX",               HitPosX,               "HitPosX[nHits]/D");
+  fNtuple->Branch("HitPosY",               HitPosY,               "HitPosY[nHits]/D");
+  fNtuple->Branch("HitPosZ",               HitPosZ,               "HitPosZ[nHits]/D");
+  fNtuple->Branch("HitStepLengthX",        HitStepLengthX,        "HitStepLengthX[nHits]/D");
+  fNtuple->Branch("HitStepLengthY",        HitStepLengthY,        "HitStepLengthY[nHits]/D");
+  fNtuple->Branch("HitStepLengthZ",        HitStepLengthZ,        "HitStepLengthZ[nHits]/D");
+  fNtuple->Branch("HitFirstStepPosX",      HitFirstStepPosX,      "HitFirstStepPosX[nHits]/D");
+  fNtuple->Branch("HitFirstStepPosY",      HitFirstStepPosY,      "HitFirstStepPosY[nHits]/D");
+  fNtuple->Branch("HitFirstStepPosZ",      HitFirstStepPosZ,      "HitFirstStepPosZ[nHits]/D");
+  fNtuple->Branch("HitLastStepPosX",       HitLastStepPosX,       "HitLastStepPosX[nHits]/D");
+  fNtuple->Branch("HitLastStepPosY",       HitLastStepPosY,       "HitLastStepPosY[nHits]/D");
+  fNtuple->Branch("HitLastStepPosZ",       HitLastStepPosZ,       "HitLastStepPosZ[nHits]/D");
+  fNtuple->Branch("HitFirstStep4VectorPx", HitFirstStep4VectorPx, "HitFirstStep4VectorPx[nHits]/D");
+  fNtuple->Branch("HitFirstStep4VectorPy", HitFirstStep4VectorPy, "HitFirstStep4VectorPy[nHits]/D");
+  fNtuple->Branch("HitFirstStep4VectorPz", HitFirstStep4VectorPz, "HitFirstStep4VectorPz[nHits]/D");
+  fNtuple->Branch("HitFirstStep4VectorE",  HitFirstStep4VectorE,  "HitFirstStep4VectorE[nHits]/D");
+  fNtuple->Branch("HitLastStep4VectorPx",  HitLastStep4VectorPx,  "HitLastStep4VectorPx[nHits]/D");
+  fNtuple->Branch("HitLastStep4VectorPy",  HitLastStep4VectorPy,  "HitLastStep4VectorPy[nHits]/D");
+  fNtuple->Branch("HitLastStep4VectorPz",  HitLastStep4VectorPz,  "HitLastStep4VectorPz[nHits]/D");
+  fNtuple->Branch("HitLastStep4VectorE",   HitLastStep4VectorE,   "HitLastStep4VectorE[nHits]/D");
+  
+  G4cout << "\n----> Histogram file is opened in " << fileName << G4endl;
+  
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuHistoManager::save()
+{ 
+  if (fRootFile) {
+    fRootFile->Write();       // Writing the histograms to the file
+    fRootFile->Close();        // and closing the tree (and the file)
+    G4cout << "\n----> Histogram Tree is saved \n" << G4endl;
+  }
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuHistoManager::FillArray(MimosaSimuTrackerHit* aHit, G4int index)
+{ 
+  
+  HitTrackID[index]            = aHit->GetTrackID();
+  HitTrackPDGCode[index]       = aHit->GetTrackPDGCode();
+  HitTrackVertexPosX[index]    = aHit->GetTrackVertexPos().x()/mm;
+  HitTrackVertexPosY[index]    = aHit->GetTrackVertexPos().y()/mm;
+  HitTrackVertexPosZ[index]    = aHit->GetTrackVertexPos().z()/mm;
+
+  HitMimosaSensorID[index]     = aHit->GetMimosaSensorID();
+  HitEdep[index]               = aHit->GetEdep();
+  HitPosX[index]               = aHit->GetPos().x()/mm;
+  HitPosY[index]               = aHit->;
+  HitPosZ[index]               = aHit->;
+  HitStepLengthX[index]        = aHit->;
+  HitStepLengthY[index]        = aHit->;
+  HitStepLengthZ[index]        = aHit->;
+  HitFirstStepPosX[index]      = aHit->;
+  HitFirstStepPosY[index]      = aHit->;
+  HitFirstStepPosZ[index]      = aHit->;
+  HitLastStepPosX[index]       = aHit->;
+  HitLastStepPosY[index]       = aHit->;
+  HitLastStepPosZ[index]       = aHit->;
+  HitFirstStep4VectorPx[index] = aHit->;
+  HitFirstStep4VectorPy[index] = aHit->;
+  HitFirstStep4VectorPz[index] = aHit->;
+  HitFirstStep4VectorE[index]  = aHit->;
+  HitLastStep4VectorPx[index]  = aHit->;
+  HitLastStep4VectorPy[index]  = aHit->;
+  HitLastStep4VectorPz[index]  = aHit->;
+  HitLastStep4VectorE[index]   = aHit->;
+#endif
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuHistoManager::FillNtuple()
+{ 
+   fNtuple->Fill();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros
+END
+vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/vis.mac
+END
+gui.mac
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/gui.mac
+END
+init_vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/init_vis.mac
+END
+exampleB2.in
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/exampleB2.in
+END
+run1.mac
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/run1.mac
+END
+run2.mac
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/run2.mac
+END
+run.png
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/run.png
+END
+icons.mac
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/icons.mac
+END
+G4History.macro
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/macros/G4History.macro
+END

@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/CMOS/!svn/ver/1778/TestBeam_Geant4Simu/trunk
+END
+vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/vis.mac
+END
+Compile.sh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/CMOS/!svn/ver/1561/TestBeam_Geant4Simu/trunk/Compile.sh
+END
+gui.mac
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/gui.mac
+END
+init_vis.mac
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/init_vis.mac
+END
+run1.mac
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/run1.mac
+END
+run2.mac
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/run2.mac
+END
+run.png
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/run.png
+END
+GNUmakefile
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/GNUmakefile
+END
+Settings.sh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/CMOS/!svn/ver/1561/TestBeam_Geant4Simu/trunk/Settings.sh
+END
+icons.mac
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/icons.mac
+END
+G4History.macro
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/G4History.macro
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/CMOS/!svn/ver/1586/TestBeam_Geant4Simu/trunk/README
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/CMOS/!svn/ver/1375/TestBeam_Geant4Simu/trunk/CMakeLists.txt
+END
+CheckGeometry.cc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/CMOS/!svn/ver/1561/TestBeam_Geant4Simu/trunk/CheckGeometry.cc
+END
