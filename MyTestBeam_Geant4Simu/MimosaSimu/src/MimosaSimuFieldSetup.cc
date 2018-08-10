@@ -1,41 +1,5 @@
-//
-// ********************************************************************
-// * License and Disclaimer                                           *
-// *                                                                  *
-// * The  Geant4 software  is  copyright of the Copyright Holders  of *
-// * the Geant4 Collaboration.  It is provided  under  the terms  and *
-// * conditions of the Geant4 Software License,  included in the file *
-// * LICENSE and available at  http://cern.ch/geant4/license .  These *
-// * include a list of copyright holders.                             *
-// *                                                                  *
-// * Neither the authors of this software system, nor their employing *
-// * institutes,nor the agencies providing financial support for this *
-// * work  make  any representation or  warranty, express or implied, *
-// * regarding  this  software system or assume any liability for its *
-// * use.  Please see the license in the file  LICENSE  and URL above *
-// * for the full disclaimer and the limitation of liability.         *
-// *                                                                  *
-// * This  code  implementation is the result of  the  scientific and *
-// * technical work of the GEANT4 collaboration.                      *
-// * By using,  copying,  modifying or  distributing the software (or *
-// * any work based  on the software)  you  agree  to acknowledge its *
-// * use  in  resulting  scientific  publications,  and indicate your *
-// * acceptance of all terms of the Geant4 Software license.          *
-// ********************************************************************
-//
-/// \file MimosaSimuFieldSetup.cc
-/// \brief Implementation of the MimosaSimuFieldSetup class
-//
-//
-// $Id: MimosaSimuFieldSetup.cc 77115 2013-11-21 15:06:37Z gcosmo $
-//
-//   User Field setup class implementation.
-//
-//
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #include "MimosaSimuFieldSetup.hh"
+#include "MimosaSimuFieldMessenger.hh"
 
 #include "G4MagneticField.hh"
 #include "G4UniformMagField.hh"
@@ -55,115 +19,195 @@
 #include "G4HelixSimpleRunge.hh"
 #include "G4CashKarpRKF45.hh"
 #include "G4RKG3_Stepper.hh"
-
+ 
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4ThreeVector.hh"
 
-#include "G4UniformMagField.hh"
-#include <Riostream.h>
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-MimosaSimuFieldSetup::MimosaSimuFieldSetup(MimosaSimuField* field)
- : fFieldManager(0),
-   fChordFinder(0),
-   fEquation(0),
-   fMagneticField(field),
-   fStepper(0),
-   fStepperType(0),
-   fMinStep(0.)
+MimosaSimuFieldSetup::MimosaSimuFieldSetup()
+: fFieldManager(0),
+  fLocalFieldManager(0),
+  fChordFinder(0),
+  fLocalChordFinder(0),
+  fEquation(0),
+  fLocalEquation(0),
+  fMagneticField(0),
+  fLocalMagneticField(0),
+  fStepper(0),
+  fLocalStepper(0),
+  fFieldMessenger(0)
 {
-  Initialize();
+  fMagneticField = new G4UniformMagField(G4ThreeVector(0.5*tesla,
+                                                       0.0,
+                                                       0.0));
+  fLocalMagneticField = new G4UniformMagField(G4ThreeVector(0.5*tesla,
+                                                            0.0,
+                                                            0.0));
+
+  fFieldMessenger = new MimosaSimuFieldMessenger(this);
+
+  fEquation = new G4Mag_UsualEqRhs(fMagneticField);
+  fLocalEquation = new G4Mag_UsualEqRhs(fLocalMagneticField);
+
+  fMinStep     = 0.25*mm ; // minimal step of 1 mm is default
+  fStepperType = 4 ;       // ClassicalRK4 is default stepper
+
+  fFieldManager = GetGlobalFieldManager();
+  fLocalFieldManager = new G4FieldManager();
+
+  UpdateField();
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void MimosaSimuFieldSetup::Initialize()
-{
-  fEquation       = new G4Mag_UsualEqRhs(fMagneticField);
-  fMinStep        = 1.0*mm; // minimal step of 1 mm is default
-  fStepperType    = 4;      // ClassicalRK4 is default stepper
-
-  fFieldManager = G4TransportationManager::GetTransportationManager()->GetFieldManager();
-  CreateStepperAndChordFinder();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 MimosaSimuFieldSetup::~MimosaSimuFieldSetup()
 {
-  delete fChordFinder;
-  delete fStepper;
+    delete fMagneticField;
+    delete fChordFinder;
+    delete fStepper;
+    delete fFieldMessenger;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void MimosaSimuFieldSetup::CreateStepperAndChordFinder()
+void MimosaSimuFieldSetup::UpdateField()
 {
-  // Update field
+  // It must be possible to call 'again' - e.g. to choose an alternative stepper
+  //   has been chosen, or in case other changes have been made.
 
+  // 1. First clean up previous state.
+  delete fChordFinder;
+  fChordFinder= nullptr;
+  delete fLocalChordFinder;
+  fLocalChordFinder= nullptr;
+
+  G4cout<<"F03FieldSetup::UpdateField> The minimal step is equal to "
+        << fMinStep/mm <<" mm"<<G4endl;
+  G4cout<<"                            Stepper Type chosen = " << fStepperType
+        << G4endl;
+
+  // 2. Create the steppers ( Note: this also deletes the previous ones. )
   SetStepper();
-  Info("CreateStepperAndChordFinder()", "The minimal step is equal to %f mm\n ", fMinStep/mm);
 
-  fFieldManager->SetDetectorField(fMagneticField);
-  fChordFinder = new G4ChordFinder( fMagneticField, fMinStep, fStepper);
+  // 3. Create the chord finder(s)
+  fChordFinder = new G4ChordFinder(fMagneticField, fMinStep, fStepper);
+  fLocalChordFinder = new G4ChordFinder(fLocalMagneticField,
+                                        fMinStep,fLocalStepper);
+
   fFieldManager->SetChordFinder(fChordFinder);
-}
+  fLocalFieldManager->SetChordFinder(fLocalChordFinder);
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  // 4. Ensure that the field is updated (in Field manager & equation)
+  fFieldManager->SetDetectorField(fMagneticField);
+  fLocalFieldManager->SetDetectorField(fLocalMagneticField);
+}
+   
 void MimosaSimuFieldSetup::SetStepper()
 {
-// Set stepper according to the stepper type
+  delete fStepper;
+  fStepper= nullptr;
 
-  if (fStepper) delete fStepper;
+  delete fLocalStepper; 
+  fLocalStepper= nullptr;
 
-  switch (fStepperType)
+  switch ( fStepperType )
   {
     case 0:
-      fStepper = new G4ExplicitEuler(fEquation);
-      G4cout<<"G4ExplicitEuler is calledS"<<G4endl;
+      fStepper = new G4ExplicitEuler( fEquation );
+      fLocalStepper = new G4ExplicitEuler( fLocalEquation );
+      G4cout<<"G4ExplicitEuler is called"<<G4endl;
       break;
     case 1:
-      fStepper = new G4ImplicitEuler(fEquation);
+      fStepper = new G4ImplicitEuler( fEquation );
+      fLocalStepper = new G4ImplicitEuler( fLocalEquation );
       G4cout<<"G4ImplicitEuler is called"<<G4endl;
       break;
     case 2:
-      fStepper = new G4SimpleRunge(fEquation);
+      fStepper = new G4SimpleRunge( fEquation );
+      fLocalStepper = new G4SimpleRunge( fLocalEquation );
       G4cout<<"G4SimpleRunge is called"<<G4endl;
       break;
     case 3:
-      fStepper = new G4SimpleHeum(fEquation);
+      fStepper = new G4SimpleHeum( fEquation );
+      fLocalStepper = new G4SimpleHeum( fLocalEquation );
       G4cout<<"G4SimpleHeum is called"<<G4endl;
       break;
     case 4:
-      fStepper = new G4ClassicalRK4(fEquation, 8);
+      fStepper = new G4ClassicalRK4( fEquation );
+      fLocalStepper = new G4ClassicalRK4( fLocalEquation );
       G4cout<<"G4ClassicalRK4 (default) is called"<<G4endl;
       break;
     case 5:
-      fStepper = new G4HelixExplicitEuler(fEquation);
+      fStepper = new G4HelixExplicitEuler( fEquation );
+      fLocalStepper = new G4HelixExplicitEuler( fLocalEquation );
       G4cout<<"G4HelixExplicitEuler is called"<<G4endl;
       break;
     case 6:
-      fStepper = new G4HelixImplicitEuler(fEquation);
+      fStepper = new G4HelixImplicitEuler( fEquation );
+      fLocalStepper = new G4HelixImplicitEuler( fLocalEquation );
       G4cout<<"G4HelixImplicitEuler is called"<<G4endl;
       break;
     case 7:
-      fStepper = new G4HelixSimpleRunge(fEquation);
+      fStepper = new G4HelixSimpleRunge( fEquation );
+      fLocalStepper = new G4HelixSimpleRunge( fLocalEquation );
       G4cout<<"G4HelixSimpleRunge is called"<<G4endl;
       break;
     case 8:
-      fStepper = new G4CashKarpRKF45(fEquation);
+      fStepper = new G4CashKarpRKF45( fEquation );
+      fLocalStepper = new G4CashKarpRKF45( fLocalEquation );
       G4cout<<"G4CashKarpRKF45 is called"<<G4endl;
       break;
     case 9:
-      fStepper = new G4RKG3_Stepper(fEquation);
+      fStepper = new G4RKG3_Stepper( fEquation );
+      fLocalStepper = new G4RKG3_Stepper( fLocalEquation );
       G4cout<<"G4RKG3_Stepper is called"<<G4endl;
       break;
     default: fStepper = 0;
   }
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MimosaSimuFieldSetup::SetFieldValue(G4double fieldStrength)
+{
+  G4ThreeVector fieldSetVec(0.0, 0.0, fieldStrength);
+  SetFieldValue( fieldSetVec );
+}
 
+void MimosaSimuFieldSetup::SetFieldValue(G4ThreeVector fieldVector)
+{
+  if(fMagneticField) delete fMagneticField;
+
+  if(fieldVector != G4ThreeVector(0.,0.,0.))
+  {
+    fMagneticField = new  G4UniformMagField(fieldVector);
+  }
+  else
+  {
+    // If the new field's value is Zero, then
+    // setting the pointer to zero ensures
+    // that it is not used for propagation.
+    fMagneticField = 0;
+  }
+
+  // Either
+  //   - UpdateField() to reset all (ChordFinder, Equation);
+  // UpdateField();
+  //     or simply update the field manager & equation of motion
+  //     with pointer to new field
+  GetGlobalFieldManager()->SetDetectorField(fMagneticField);
+  fEquation->SetFieldObj( fMagneticField );
+
+}
+
+G4FieldManager* MimosaSimuFieldSetup::GetGlobalFieldManager()
+{
+  return G4TransportationManager::GetTransportationManager()
+                                  ->GetFieldManager();
+}
+
+G4ThreeVector MimosaSimuFieldSetup::GetConstantFieldValue()
+{
+  static G4double fieldValue[6],  position[4];
+  position[0] = position[1] = position[2] = position[3] = 0.0;
+
+  fMagneticField->GetFieldValue( position, fieldValue);
+  G4ThreeVector fieldVec(fieldValue[0], fieldValue[1], fieldValue[2]);
+
+  return fieldVec;
+}
 
 

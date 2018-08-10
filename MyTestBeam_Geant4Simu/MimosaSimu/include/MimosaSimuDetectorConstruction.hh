@@ -37,13 +37,14 @@
 #include "tls.hh"
 #include "MimosaSimuSetup.hh"
 #include "G4RotationMatrix.hh"
+#include "G4Cache.hh"
 #include <vector>
 
 class G4VPhysicalVolume;
 class G4LogicalVolume;
 class G4Material;
 class G4UserLimits;
-class G4GlobalMagFieldMessenger;
+//class G4GlobalMagFieldMessenger;
 class MimosaSimuFieldSetup; 
 
 class MimosaSimuDetectorMessenger;

@@ -2,8 +2,13 @@
 
 clear
 
-export DIGI_DIR="/afs/cern.ch/work/j/jongho/Strasbourg/MIMOSA_DIGITIZER"
-export GEANT4_BUILD_DIR="/afs/cern.ch/sw/lcg/external/geant4/10.0.p02/x86_64-slc6-gcc47-opt/share/Geant4-10.0.2/geant4make"
+#export DIGI_DIR="/Users/jeromeb/rawcmos/SVNMAC/CMOS/MIMOSA_DIGITIZER/trunk/"
+export DIGI_DIR="/home/jongho/Analysis/Strasbourg/MIMOSA_DIGITIZER/trunk/"
+#export GEANT4_BUILD_DIR="/home/aperez/Geant4/geant4.10.01.p02-build"
+export GEANT4_BUILD_DIR="/home/jongho/Software/geant4/build"
+echo "Path to build directory $GEANT4_BUILD_DIR "
+
+#export GEANT4_BUILD_DIR="/usr/local/share/Geant4-10.4.2"
 
 echo
 echo

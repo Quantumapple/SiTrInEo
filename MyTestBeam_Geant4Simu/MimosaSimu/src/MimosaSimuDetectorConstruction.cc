@@ -823,11 +823,16 @@ void MimosaSimuDetectorConstruction::ConstructSDandField()
   //fMagFieldMessenger->SetVerboseLevel(1);
  
   if (!fMimosaBfieldSetup.Get()) {
-      MimosaSimuFieldSetup* MimosaBfieldSetup = new MimosaSimuFieldSetup();
+      MimosaSimuFieldSetup* mimosaBfieldSetup = new MimosaSimuFieldSetup();
 
-      fMimosaBfieldSetup.Put(MimosaBfieldSetup);
-      G4AutoDelete::Register(MimosaBfieldSetup); // Kernel will delete the messenger
-  } 
+      fMimosaBfieldSetup.Put(mimosaBfieldSetup);
+      G4AutoDelete::Register(mimosaBfieldSetup); // Kernel will delete the messenger
+  }
+
+  // Set local field manager and local field in radiator and its daughters:
+  //G4bool allLocal = true;
+  //fLogicRadiator->SetFieldManager(fMimosaBfieldSetup.Get()->GetLocalFieldManager().
+  //                                allLocal );
 
   // Register the field messenger for deleting
   //G4AutoDelete::Register(fMagFieldMessenger);

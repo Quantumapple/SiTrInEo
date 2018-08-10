@@ -1,53 +1,57 @@
-//
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #ifndef MimosaSimuFieldSetup_h
 #define MimosaSimuFieldSetup_h 1
 
 #include "G4MagneticField.hh"
-#include "MimosaSimuField.hh"
-
-#include "TVector3.h"
+#include "G4UniformMagField.hh"
 
 class G4FieldManager;
 class G4ChordFinder;
 class G4Mag_UsualEqRhs;
 class G4MagIntegratorStepper;
-class MimosaSimuFieldSetupMessenger;
-class G4MagneticField;
+class MimosaSimuFieldMessenger;
 
 class MimosaSimuFieldSetup
 {
-public:
-  MimosaSimuFieldSetup();
-  MimosaSimuFieldSetup(MimosaSimuField* field);
-  virtual ~MimosaSimuFieldSetup();
+    public: 
+      MimosaSimuFieldSetup();          // A zero field
+      virtual ~MimosaSimuFieldSetup();
 
-  void SetStepperType(Int_t i) { fStepperType = i; }
-  void SetMinStep(Double_t s)  { fMinStep = s;     }
-  
-  void SetStepper();
-  void Initialize();    //  Set parameters and call method below
-  void CreateStepperAndChordFinder();
-   
-  G4FieldManager*  GetFieldManager() { return fFieldManager; }
+      void SetStepperType( G4int i ) { fStepperType = i; }
 
-protected:
-  G4FieldManager*         fFieldManager;
-  G4ChordFinder*          fChordFinder;
-  G4Mag_UsualEqRhs*       fEquation;
-  MimosaSimuField*        fMagneticField;
+      void SetStepper();
 
-  G4MagIntegratorStepper* fStepper;
-  Int_t                   fStepperType;
+      void SetMinStep(G4double s) { fMinStep = s; }
 
-  Double_t                fMinStep;
- 
+      void SetFieldValue(G4ThreeVector fieldVector);
+      void SetFieldValue(G4double      fieldValue);
+      G4ThreeVector GetConstantFieldValue();
+
+      void UpdateField();
+
+      G4FieldManager* GetLocalFieldManager() { return fLocalFieldManager; }
+
+    protected:
+
+      // Find the global Field Manager
+
+      G4FieldManager*           GetGlobalFieldManager();
+
+      G4FieldManager*           fFieldManager;
+      G4FieldManager*           fLocalFieldManager;
+      G4ChordFinder*            fChordFinder;
+      G4ChordFinder*            fLocalChordFinder;
+      G4Mag_UsualEqRhs*         fEquation;
+      G4Mag_UsualEqRhs*         fLocalEquation;
+      G4MagneticField*          fMagneticField;
+      G4MagneticField*          fLocalMagneticField;
+
+      G4MagIntegratorStepper*   fStepper;
+      G4MagIntegratorStepper*   fLocalStepper;
+      G4int                     fStepperType;
+
+      G4double                  fMinStep;
+
+      MimosaSimuFieldMessenger* fFieldMessenger;
 };
-
 #endif
-
-
-
 
