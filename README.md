@@ -21,7 +21,7 @@ To run in your own machine. You have to install pre-requisite libraries and prog
 
 ![Option](./image/screenshot.png)
 
-<li> *RECOMMAND: option GEANT4\_BUILD\_MULTITHREADED set "ON"* </li>    
+<li> **RECOMMAND: option GEANT4\_BUILD\_MULTITHREADED set "ON"** </li>    
 <li> Open Mimosa-private-setup.sh and change path to fit your own machine</li>    
 <li> Then, type command:</li>
 <blockquote>
