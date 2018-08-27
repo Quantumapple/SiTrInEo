@@ -57,7 +57,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
  
-G4ThreadLocal 
+//G4ThreadLocal 
 //G4GlobalMagFieldMessenger* MimosaSimuDetectorConstruction::fMagFieldMessenger = 0;
 
 MimosaSimuDetectorConstruction::MimosaSimuDetectorConstruction(MimosaSimuSetup* TheSetup) : G4VUserDetectorConstruction(), 
