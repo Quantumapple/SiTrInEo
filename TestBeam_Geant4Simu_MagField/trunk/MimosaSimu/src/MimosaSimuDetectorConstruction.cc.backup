@@ -1,0 +1,455 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+// $Id: MimosaSimuDetectorConstruction.cc 87359 2014-12-01 16:04:27Z gcosmo $
+//
+/// \file MimosaSimuDetectorConstruction.cc
+/// \brief Implementation of the MimosaSimuDetectorConstruction class
+ 
+#include "MimosaSimuDetectorConstruction.hh"
+#include "MimosaSimuDetectorMessenger.hh"
+#include "MimosaSimuTrackerSD.hh"
+#include "MimosaSimuTrajectorySD.hh"
+
+#include "G4Material.hh"
+#include "G4NistManager.hh"
+
+#include "G4Box.hh"
+#include "G4Tubs.hh"
+#include "G4LogicalVolume.hh"
+#include "G4PVPlacement.hh"
+#include "G4GlobalMagFieldMessenger.hh"
+#include "G4AutoDelete.hh"
+
+#include "G4GeometryTolerance.hh"
+#include "G4GeometryManager.hh"
+
+#include "G4UserLimits.hh"
+
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
+
+#include "G4SystemOfUnits.hh"
+#include "G4SDManager.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+ 
+G4ThreadLocal 
+G4GlobalMagFieldMessenger* MimosaSimuDetectorConstruction::fMagFieldMessenger = 0;
+
+MimosaSimuDetectorConstruction::MimosaSimuDetectorConstruction(MimosaSimuSetup* TheSetup) : G4VUserDetectorConstruction(), 
+                                                                                            fNumberOfSensors(0),
+                                                                                            fNbOfChambers(0),
+                                                                                            fLogicMimosaSensor(NULL),
+                                                                                            fTargetMaterial(NULL), 
+                                                                                            fChamberMaterial(NULL),
+                                                                                            fSensorMaterial(NULL),
+                                                                                            fStepLimit(NULL),
+                                                                                            fCheckOverlaps(true),
+                                                                                            fSetup(TheSetup)
+{
+  
+  fNumberOfSensors    = fSetup->TrackerParameter.Planes;
+  fSensorMaterial     = new G4Material*[fNumberOfSensors];
+  fLogicMimosaSensor  = new G4LogicalVolume*[fNumberOfSensors];
+  fPhysicMimosaSensor = new G4VPhysicalVolume*[fNumberOfSensors];
+  
+  fMessenger = new MimosaSimuDetectorMessenger(this);
+  
+  //Setting up the name of the output GDML file
+  TString GDMLOutPutName = fSetup->GetConfigFileName() + TString(".gdml");
+  TString command = TString("rm ") + GDMLOutPutName;
+  gSystem->Exec(command.Data());
+  fWriteFile = GDMLOutPutName.Data();
+  
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+ 
+MimosaSimuDetectorConstruction::~MimosaSimuDetectorConstruction()
+{
+  delete [] fLogicMimosaSensor; 
+  delete [] fSensorMaterial; 
+  delete fStepLimit;
+  delete fMessenger;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+ 
+G4VPhysicalVolume* MimosaSimuDetectorConstruction::Construct()
+{
+  
+  G4VPhysicalVolume* fWorldPhysVol;
+  
+  // Define materials
+  DefineMaterials();
+
+  // Define volumes
+  fWorldPhysVol = DefineVolumes();
+  
+  //Write geometry to GDML file
+  fParser.Write(fWriteFile,fWorldPhysVol);
+  
+  return fWorldPhysVol;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuDetectorConstruction::DefineMaterials()
+{
+  // Material definition 
+
+  G4NistManager* nistManager = G4NistManager::Instance();
+
+  // Air defined using NIST Manager
+  nistManager->FindOrBuildMaterial("G4_AIR");
+  air     = G4Material::GetMaterial("G4_AIR");
+  nistManager->FindOrBuildMaterial("G4_Si");
+  silicon = G4Material::GetMaterial("G4_Si");
+  nistManager->FindOrBuildMaterial("G4_POLYVINYL_ACETATE");
+  tape    = G4Material::GetMaterial("G4_POLYVINYL_ACETATE");
+  
+  //Filling up the material map
+  _material_name_list.clear();
+  _material_map[TString("silicon")] = silicon;
+  _material_name_list.push_back(TString("silicon"));
+  _material_map[TString("tape")]    = tape;
+  _material_name_list.push_back(TString("tape"));
+  
+  //G4double a, z,density;
+  //silicon = new G4Material("silicon", z=14., a=  28.09*g/mole, density=2.3290*g/cm3);
+  
+  // Lead defined using NIST Manager
+  fTargetMaterial  = nistManager->FindOrBuildMaterial("G4_Pb");
+
+  // Xenon gas defined using NIST Manager
+  fChamberMaterial = nistManager->FindOrBuildMaterial("G4_Xe");
+
+  // Print materials
+  G4cout << *(G4Material::GetMaterialTable()) << G4endl;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4VPhysicalVolume* MimosaSimuDetectorConstruction::DefineVolumes()
+{
+
+  G4String Some_LV;
+  
+  // Sizes of the principal geometrical components (solids)
+  
+  // Mimosa Sensors 
+  const int MyNumberOfSensors(50);
+  G4double fSensorPitchX[MyNumberOfSensors];
+  G4double fSensorPitchY[MyNumberOfSensors];
+  G4int    colNumberSensor[MyNumberOfSensors];
+  G4int    rowNumberSensor[MyNumberOfSensors];
+  G4double fSensorLengthX[MyNumberOfSensors];
+  G4double fSensorLengthY[MyNumberOfSensors];
+  G4int    ReadOut[MyNumberOfSensors];
+
+  G4double fSensorThickness[MyNumberOfSensors];
+  TString  fMaterial[MyNumberOfSensors];
+
+  G4double SensorX[MyNumberOfSensors];          //mm
+  G4double SensorY[MyNumberOfSensors];          //mm
+  G4double SensorZ[MyNumberOfSensors];          //mm
+  G4double SensorRotationX[MyNumberOfSensors];  //rad
+  G4double SensorRotationY[MyNumberOfSensors];  //rad
+  G4double SensorRotationZ[MyNumberOfSensors];  //rad
+  G4ThreeVector SensorPosition[MyNumberOfSensors];
+  G4RotationMatrix *rot[MyNumberOfSensors];
+
+  G4double Rad_to_Deg = 180.0/TMath::Pi();
+  
+  G4double Xmax;
+  G4double Ymax;
+  G4double Zmax;
+  Xmax = Ymax = Zmax = -1.0e+20;
+  for(G4int sensorID = 0; sensorID < fSetup->TrackerParameter.Planes; sensorID++) { //Looping over the planes to build the
+    //The sensor size:
+    fSensorPitchX[sensorID]   = fSetup->GetPlanePar(sensorID+1).Pitch[0]*um;
+    fSensorPitchY[sensorID]   = fSetup->GetPlanePar(sensorID+1).Pitch[1]*um;
+    colNumberSensor[sensorID] = fSetup->GetPlanePar(sensorID+1).Strips[0];
+    rowNumberSensor[sensorID] = fSetup->GetPlanePar(sensorID+1).Strips[1];
+    fSensorLengthX[sensorID]  = colNumberSensor[sensorID]*fSensorPitchX[sensorID];
+    fSensorLengthY[sensorID]  = rowNumberSensor[sensorID]*fSensorPitchY[sensorID];
+    ReadOut[sensorID]         = fSetup->GetPlanePar(sensorID+1).Readout;
+    
+    //The sensor thickness and material
+    fSensorThickness[sensorID]  = fSetup->GetPlanePar(sensorID+1).PlaneThickness*um;
+    //fSensorThickness[sensorID]  = 1000*um;
+    fMaterial[sensorID]         = fSetup->GetPlanePar(sensorID+1).PlaneMaterial;
+
+    //The sensor position
+    SensorX[sensorID]         = fSetup->GetPlanePar(sensorID+1).Position[0]*um;
+    SensorY[sensorID]         = fSetup->GetPlanePar(sensorID+1).Position[1]*um;
+    SensorZ[sensorID]         = fSetup->GetPlanePar(sensorID+1).Position[2]*um;
+    SensorRotationZ[sensorID] = fSetup->GetPlanePar(sensorID+1).Tilt[0]*Rad_to_Deg*deg;
+    SensorRotationY[sensorID] = fSetup->GetPlanePar(sensorID+1).Tilt[1]*Rad_to_Deg*deg;
+    SensorRotationX[sensorID] = fSetup->GetPlanePar(sensorID+1).Tilt[2]*Rad_to_Deg*deg;
+    
+    fSensorMaterial[sensorID] = silicon;
+    
+    if(Xmax < TMath::Abs(SensorX[sensorID] + fSensorLengthX[sensorID]*0.5)) Xmax = TMath::Abs(SensorX[sensorID] + fSensorLengthX[sensorID]*0.5);
+    if(Xmax < TMath::Abs(SensorX[sensorID] - fSensorLengthX[sensorID]*0.5)) Xmax = TMath::Abs(SensorX[sensorID] - fSensorLengthX[sensorID]*0.5);
+    if(Ymax < TMath::Abs(SensorY[sensorID] + fSensorLengthY[sensorID]*0.5)) Ymax = TMath::Abs(SensorY[sensorID] + fSensorLengthY[sensorID]*0.5);
+    if(Ymax < TMath::Abs(SensorY[sensorID] - fSensorLengthY[sensorID]*0.5)) Ymax = TMath::Abs(SensorY[sensorID] - fSensorLengthY[sensorID]*0.5);
+    if(Zmax < TMath::Abs(SensorZ[sensorID])) Zmax = TMath::Abs(SensorZ[sensorID]);
+  }
+  G4double porcent = 30.0/100.0;
+  Xmax *= (1.0 + porcent);
+  Ymax *= (1.0 + porcent);
+  Zmax *= (1.0 + porcent);
+  Xmax *= 2.0;
+  Ymax *= 2.0;
+  Zmax *= 2.0;
+  
+  cout << "Xmax = " << Xmax/cm << endl;
+  cout << "Ymax = " << Ymax/cm << endl;
+  cout << "Zmax = " << Zmax/cm << endl;
+  
+  //fWorldLengthX =  5.0*cm;
+  //fWorldLengthY =  5.0*cm;
+  //fWorldLengthZ = 50.0*cm;
+  fWorldLengthX = TMath::Max(Xmax,Ymax);
+  fWorldLengthY = TMath::Max(Xmax,Ymax);
+  fWorldLengthZ = Zmax;
+  G4ThreeVector fPositionWorld(0,0,0);
+  G4double MaxworldLength = TMath::Max(fWorldLengthX,fWorldLengthY);
+  MaxworldLength = TMath::Max(MaxworldLength,fWorldLengthZ);
+  
+  // World
+  G4GeometryManager::GetInstance()->SetWorldMaximumExtent(MaxworldLength);
+  G4cout << "Computed tolerance = "
+         << G4GeometryTolerance::GetInstance()->GetSurfaceTolerance()/mm
+         << " mm" << G4endl;
+	 
+  G4Box* worldS = new G4Box("world",                                    //its name
+                            fWorldLengthX/2,
+			    fWorldLengthY/2,
+			    fWorldLengthZ/2); //its size
+  G4LogicalVolume* worldLV = new G4LogicalVolume(worldS,   //its solid
+                                                 air,      //its material
+						 "World"); //its name
+  Some_LV = "World";
+  _ListOfAllLogicalVolume_Names.push_back(Some_LV);
+  _ListOfAllLogicalVolumes.push_back(worldLV);
+  
+  //  Must place the World Physical volume unrotated at (0,0,0)
+  G4VPhysicalVolume* worldPV = new G4PVPlacement(0,               // no rotation
+						 fPositionWorld,  // at (0,0,0)
+                                                 worldLV,         // its logical volume
+                                                 "World",         // its name
+                                                 0,               // its mother  volume
+                                                 false,           // no boolean operations
+                                                 0,               // copy number
+                                                 fCheckOverlaps); // checking overlaps 
+  
+  // Definitions of Solids, Logical Volumes, Physical Volumes
+
+  // Visualization attributes
+  G4VisAttributes* boxVisAtt     = new G4VisAttributes(G4Colour(1.0,1.0,1.0));
+  G4VisAttributes* MimosaVisAtt = new G4VisAttributes(G4Colour(1.0,1.0,0.0));
+
+  worldLV->SetVisAttributes(boxVisAtt);
+
+  for(G4int sensorID = 0; sensorID < fSetup->TrackerParameter.Planes; sensorID++) { //Looping over the planes to build the
+    cout << "Sensor " << sensorID+1 << ": location = (" << SensorX[sensorID]/cm << "," << SensorY[sensorID]/cm << "," << SensorZ[sensorID]/cm << ") cm"
+         << "; SizeU/V/W = (" << fSensorLengthX[sensorID]/cm << " cm," << fSensorLengthY[sensorID]/cm << " cm," << fSensorThickness[sensorID]/um << " um)"
+	 << "; rotation X/Y/Z = (" << SensorRotationX[sensorID]/deg << "," << SensorRotationY[sensorID]/deg << "," << SensorRotationZ[sensorID]/deg << ") deg"
+         << endl;
+
+    //notActivePartTop[sensorID]    = 0.0; // um
+    //notActivePartBottom[sensorID] = 0.0; // um
+    
+    SensorPosition[sensorID] = G4ThreeVector(SensorX[sensorID],SensorY[sensorID],SensorZ[sensorID]);
+    
+    rot[sensorID] = new G4RotationMatrix();
+
+    G4double factor_rot = +1.0;
+    //G4double factor_rot = -1.0;
+    *rot[sensorID] = G4RotationMatrix();
+    rot[sensorID]->rotateX(factor_rot*SensorRotationX[sensorID]);
+    rot[sensorID]->rotateY(factor_rot*SensorRotationY[sensorID]);
+    rot[sensorID]->rotateZ(factor_rot*SensorRotationZ[sensorID]);
+
+    G4String Solid_Name;
+    G4String LV_Name;
+    G4String PV_Name;
+    if(ReadOut[sensorID] <= 0) {
+      TString NameTmp;
+      
+      NameTmp = TString("InnertMaterial_Solid");
+      Solid_Name = NameTmp.Data();
+      NameTmp = TString("InnertMaterial_LV");
+      LV_Name = NameTmp.Data();
+      NameTmp = TString("InnertMaterial_PV");
+      PV_Name = NameTmp.Data();
+      
+      Some_LV = LV_Name;
+      _ListOfAllLogicalVolume_Names.push_back(Some_LV);
+    }
+    else {
+      TString NameTmp;
+      
+      NameTmp = TString("MimosaSensor_Solid") + long(sensorID+1);
+      Solid_Name = NameTmp.Data();
+      NameTmp = TString("MimosaSensor_LV") + long(sensorID+1);
+      LV_Name = NameTmp.Data();
+      NameTmp = TString("MimosaSensor_PV") + long(sensorID+1);
+      PV_Name = NameTmp.Data();
+      
+      _ListOfSensitiveDetectors_ID.push_back(sensorID+1);
+      _ListOfSensitiveDetectors_Names.push_back(LV_Name);
+    }
+    
+    CheckMaterial(fMaterial[sensorID]);
+    
+    G4Box* solidMimosa            = new G4Box(Solid_Name,fSensorLengthX[sensorID]/2,fSensorLengthY[sensorID]/2,fSensorThickness[sensorID]/2);
+    //fLogicMimosaSensor[sensorID]  = new G4LogicalVolume(solidMimosa,silicon,LV_Name);
+    fLogicMimosaSensor[sensorID]  = new G4LogicalVolume(solidMimosa,_material_map[fMaterial[sensorID]],LV_Name);
+    fLogicMimosaSensor[sensorID]->SetVisAttributes(MimosaVisAtt);
+    if(ReadOut[sensorID] <= 0) _ListOfAllLogicalVolumes.push_back(fLogicMimosaSensor[sensorID]);
+    fPhysicMimosaSensor[sensorID] = new G4PVPlacement(rot[sensorID],SensorPosition[sensorID],PV_Name,fLogicMimosaSensor[sensorID],worldPV, false,0,fCheckOverlaps);
+    
+    G4double maxStep = 0.5*fSensorThickness[sensorID];
+    fStepLimit = new G4UserLimits(maxStep);
+    fLogicMimosaSensor[sensorID]->SetUserLimits(fStepLimit);
+  }
+  
+  // Example of User Limits
+  //
+  // Below is an example of how to set tracking constraints in a given
+  // logical volume
+  //
+  // Sets a max step length in the tracker region, with G4StepLimiter
+ 
+  /// Set additional contraints on the track, with G4UserSpecialCuts
+  ///
+  /// G4double maxLength = 2*trackerLength, maxTime = 0.1*ns, minEkin = 10*MeV;
+  /// trackerLV->SetUserLimits(new G4UserLimits(maxStep,
+  ///                                           maxLength,
+  ///                                           maxTime,
+  ///                                           minEkin));
+
+  // Always return the physical world
+
+  return worldPV;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+ 
+void MimosaSimuDetectorConstruction::ConstructSDandField()
+{
+  // Sensitive detectors
+
+  G4SDManager* SDman = G4SDManager::GetSDMpointer();
+
+  for(G4int iSensor = 0; iSensor < G4int(_ListOfSensitiveDetectors_ID.size()); iSensor++) {
+    G4String MimosaSensorSDname = _ListOfSensitiveDetectors_Names[iSensor];
+    G4cout << "Mimosa Sensor Sensitive Detector Name = " << MimosaSensorSDname.data() << G4endl;
+    TString NameTmp = TString("MimosaSensorHitsCollection") + long(_ListOfSensitiveDetectors_ID[iSensor]);
+    G4String MimosaSensorCollname = NameTmp.Data();
+    cout << "MimosaSensitive collection name " << MimosaSensorCollname.data() << endl;
+    
+    MimosaSimuTrackerSD* aTrackerSD = new MimosaSimuTrackerSD(MimosaSensorSDname,
+                                                              MimosaSensorCollname,
+						              _ListOfSensitiveDetectors_ID[iSensor],
+							      fSetup->GetAnalysisPar().SavePlots);
+     SDman->AddNewDetector(aTrackerSD);
+     fLogicMimosaSensor[_ListOfSensitiveDetectors_ID[iSensor]-1]->SetSensitiveDetector(aTrackerSD);
+   }
+
+   for(G4int iLV = 0; iLV < G4int(_ListOfAllLogicalVolume_Names.size()); iLV++) {
+     G4String SDname = _ListOfAllLogicalVolume_Names[iLV];
+     G4cout << "Trajectory Sensor Sensitive Detector Name = " << SDname.data() << G4endl;
+     TString NameTmp = TString("TrajectoryHitsCollection") + long(iLV+1);
+     G4String TrajectoryCollName = NameTmp.Data();
+     cout << "Tracjectory collection name " << TrajectoryCollName.data() << endl;
+     
+     MimosaSimuTrajectorySD* aTrajectorySD = new MimosaSimuTrajectorySD(SDname,
+									TrajectoryCollName,
+							                fSetup->GetAnalysisPar().SavePlots);
+     SDman->AddNewDetector(aTrajectorySD);
+     _ListOfAllLogicalVolumes[iLV]->SetSensitiveDetector(aTrajectorySD);
+   }
+
+  // Create global magnetic field messenger.
+  // Uniform magnetic field is then created automatically if
+  // the field value is not zero.
+  G4ThreeVector fieldValue = G4ThreeVector(0.0,0.0,0.0);
+  fMagFieldMessenger = new G4GlobalMagFieldMessenger(fieldValue);
+  fMagFieldMessenger->SetVerboseLevel(1);
+  
+  // Register the field messenger for deleting
+  G4AutoDelete::Register(fMagFieldMessenger);
+  
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuDetectorConstruction::SetMimosaSensorMaterial(G4int sensorID, G4String materialName)
+{
+  G4NistManager* nistManager = G4NistManager::Instance();
+
+  G4Material* pttoMaterial =
+              nistManager->FindOrBuildMaterial(materialName);
+
+  if(fSensorMaterial[sensorID] != pttoMaterial) {
+    if( pttoMaterial ) {
+      fSensorMaterial[sensorID] = pttoMaterial;
+      if (fLogicMimosaSensor[sensorID]) fLogicMimosaSensor[sensorID]->SetMaterial(fChamberMaterial);
+      G4cout << G4endl << "----> The sensor " << sensorID << " is made of " << materialName << G4endl;
+    } else {
+      G4cout << G4endl << "-->  WARNING from SetMimosaSensorMaterial : " << materialName << " not found" << G4endl;
+    }
+  }
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuDetectorConstruction::SetMaxStep(G4double maxStep)
+{
+  if ((fStepLimit)&&(maxStep>0.)) fStepLimit->SetMaxAllowedStep(maxStep);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuDetectorConstruction::SetCheckOverlaps(G4bool checkOverlaps)
+{
+  fCheckOverlaps = checkOverlaps;
+}  
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MimosaSimuDetectorConstruction::CheckMaterial(TString Material)
+{
+  
+  return;
+  
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
