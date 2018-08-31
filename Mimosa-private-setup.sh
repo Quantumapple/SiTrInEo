@@ -11,6 +11,7 @@ source $GEANT4DIR/share/Geant4-10.4.2/geant4make/geant4make.sh
 
 #### Library path setup ####
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib64
 
 #### Root 5.34 version setup ####
