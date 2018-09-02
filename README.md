@@ -33,16 +33,21 @@ Pre-requisite library: Xerces-C <br>
 <p> wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.1.1.tar.gz </p>
 <p> tar -zxvf xerces-c-3.1.1.tar.gz </p>
 </blockquote>
-Move to xerces-c directory, then
+Move to xerces-c directory, then <br>
 <blockquote>
 <p> ./configure --prefix=path/to/build/directory </p>
 <p> make -j3 </p>
 <p> make install </p>
 </blockquote>
 
-Open ~/.bashrc and set environments
-```export SCRAM_ARCH=slc6_amd64_gcc480''' 
+Open ~/.bashrc and set environments <br>
+export SCRAM\_ARCH=slc6\_amd64\_gcc480 <br>
 
+Install CMSSW\_6\_2\_0 version 
+$ source /cvmfs/cms.cern.ch/cmsset\_default.sh
+$ scramv1 project CMSSW CMSSW\_6\_2\_0
+$ cd CMSSW\_6\_2\_0/src
+$ cmsenv
 
 
 ### Common
