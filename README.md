@@ -32,7 +32,7 @@ Pre-requisite library: Xerces-C <br>
 <blockquote>
 <p> wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.1.1.tar.gz </p>
 <p> tar -zxvf xerces-c-3.1.1.tar.gz </p>
-<p> cd xerces-c/directory </p>
+<p> cd xerces-c-3.1.1 </p>
 <p> ./configure --prefix=path/to/build/directory </p>
 <p> make -j3 </p>
 <p> make install </p>
@@ -43,11 +43,21 @@ Open ~/.bashrc and set environments <br>
 export SCRAM\_ARCH=slc6\_amd64\_gcc480 <br>
 
 Install CMSSW\_6\_2\_0 version <br>
-$ source /cvmfs/cms.cern.ch/cmsset\_default.sh <br>
-$ scramv1 project CMSSW CMSSW\_6\_2\_0 <br>
-$ cd CMSSW\_6\_2\_0/src <br>
-$ cmsenv <br>
+<blockquote>
+<p> source /cvmfs/cms.cern.ch/cmsset\_default.sh </p> 
+<p> scramv1 project CMSSW CMSSW\_6\_2\_0 </p>
+<p> cd CMSSW\_6\_2\_0/src </p>
+<p> cmsenv </p>
+</blockquote>
+<br>
 
+Set Geant4 environment 
+<blockquote>
+<p> XERCES_INCLUDE_DIR = path/to/build/xerces-c-3.1.1 </p>
+<p> XERCES_LIBRARY = path/to/build/xerces-c-3.1.1/lib/libxerces-c-3.1.so </p>
+</blockquote>
+
+![Option](./image/KNU-Tier3.png)
 
 
 ### Common
