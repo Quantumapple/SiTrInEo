@@ -41,7 +41,7 @@ Move to xerces-c directory, then
 </blockquote>
 
 Open ~/.bashrc and set environments
-'''export SCRAM_ARCH=slc6_amd64_gcc480''' <br>
+```export SCRAM_ARCH=slc6_amd64_gcc480''' 
 
 
 
