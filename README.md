@@ -27,13 +27,14 @@ To run in your own machine. You have to install pre-requisite libraries and prog
 <p> source Mimosa-private-setup.sh</p>
 </blockquote>
 
+<!--
 ### KNU Tier3 server
 Pre-requisite library: Xerces-C <br>
 <blockquote>
 <p> wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.1.1.tar.gz </p>
 <p> tar -zxvf xerces-c-3.1.1.tar.gz </p>
 <p> cd xerces-c-3.1.1 </p>
-<p> ./configure --prefix=path/to/build/directory </p>
+<p> ./configure -prefix=path/to/build/directory </p>
 <p> make -j3 </p>
 <p> make install </p>
 </blockquote>
@@ -58,7 +59,7 @@ Set Geant4 environment
 </blockquote>
 
 ![Option](./image/KNU-Tier3.png)
-
+-->
 
 ### Common
 <li> Below commands are the same to both Lxplus and private machine </li>
