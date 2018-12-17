@@ -6,7 +6,7 @@
 // 
 // created   -> 2014/10/15
 //
-// lab test data with 6 FSBB
+// lab test data with 6 MIMOSA-28
 //
 // -+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+-
 // -------- !!!! DO NOT USE Colons or double quotes in Comments !!! ------------
@@ -20,7 +20,7 @@ Affiliation:     "CMOS"
 BeamTime:        "Jun15"
 Signature:       "AP"
 Confidence:      "none"
-DataPath:        "/home/aperez/TAF_repo/SomeData/data/DATA_Beam/fsbb_Alice/2015_06_DESY_FSBBbis/35704/"
+DataPath:        "/home/aperez/TAF_repo/SomeData/data/DATA_Beam/fsbb_Alice/2015_06_DESY_MIMOSA-28bis/35704/"
 Extension:       ""
 EventsInFile:    1
 StartIndex:      0
@@ -55,28 +55,28 @@ NoiseRun:        0
  TimeLimit:             400000
  
  //Experimental set-up variables. Currently either Beam-Test or Source (beta or Xrays)
- ExpSetup:                 "Beam-Test"
- BeamNparticles:           1           // number of beam particles to simulte per event
- BeamRandNparticles:       1           // flag to generate the number of particles per event: if 0(1) generate exactly BeamNparticles (with poisson distribution)
- BeamType:                 "electron"
- BeamMomentum:             0.002       //Beam momtum in GeV/c
- BeamDirectionX:           0.0         BeamDirectionY:    0.0    BeamDirectionZ:    1.0  //beam direction vector (px, py, pz)/p, no units
- BeamAngularSpreadX:       1.0e-3      // beam angular spread w.r.t beam direction in X' direction, no units
- BeamAngularSpreadY:       1.0e-3      // beam angular spread w.r.t beam direction in X' direction, no units
- BeamMomentumSpread:       1.0e-3      // beam relative momentum spread (detla-p/p), no untis
- BeamOriginX:              0.0         BeamOriginY:       0.0    BeamOriginZ:    -30.0 //beam origin position, in mm
- BeamOriginSpreadX:        1.0         // beam origin spread (gaussian) in X' direction, in mm
- BeamOriginSpreadY:        1.0         // beam origin spread (gaussian) in Y' direction, in mm
+ //ExpSetup:                 "Beam-Test"
+ //BeamNparticles:           1           // number of beam particles to simulte per event
+ //BeamRandNparticles:       1           // flag to generate the number of particles per event: if 0(1) generate exactly BeamNparticles (with poisson distribution)
+ //BeamType:                 "electron"
+ //BeamMomentum:             0.002       //Beam momtum in GeV/c
+ //BeamDirectionX:           0.0         BeamDirectionY:    0.0    BeamDirectionZ:    1.0  //beam direction vector (px, py, pz)/p, no units
+ //BeamAngularSpreadX:       1.0e-3      // beam angular spread w.r.t beam direction in X' direction, no units
+ //BeamAngularSpreadY:       1.0e-3      // beam angular spread w.r.t beam direction in X' direction, no units
+ //BeamMomentumSpread:       1.0e-3      // beam relative momentum spread (detla-p/p), no untis
+ //BeamOriginX:              0.0         BeamOriginY:       0.0    BeamOriginZ:    -30.0 //beam origin position, in mm
+ //BeamOriginSpreadX:        1.0         // beam origin spread (gaussian) in X' direction, in mm
+ //BeamOriginSpreadY:        1.0         // beam origin spread (gaussian) in Y' direction, in mm
  
- //ExpSetup:                 "Source-Sr90"
- //SourcePositionX:           0.0  SourcePositionY:    0.0  SourcePositionZ:     35.0   //Source position,  in mm
- //SourceTiltZ:               0.0  SourceTiltY:        0.0  SourceTiltX:         0.0   //Source rotations, in degrees
- //SourceRadius:              2.5         // source radius, in mm
- //SourceActivity:            9.0e+5      // source activity, in decays per sec
- //SourceSensorROTime:      115.2         // sensor integration time, in usec
+ ExpSetup:                 "Source-Sr90"
+ SourcePositionX:           0.0  SourcePositionY:    0.0  SourcePositionZ:     30.0   //Source position,  in mm
+ SourceTiltZ:               0.0  SourceTiltY:        0.0  SourceTiltX:         0.0   //Source rotations, in degrees
+ SourceRadius:              2.5         // source radius, in mm
+ SourceActivity:            9.0e+5      // source activity, in decays per sec
+ SourceSensorROTime:      115.2         // sensor integration time, in usec
  
  //Defines if there is a magnetic field. If not set then B-field is zero
- BFieldMagnitude:         1.0    //B-field magnitude in Tesla
+ BFieldMagnitude:         0.2    //B-field magnitude in Tesla
  BFieldDirectionX:        -1.0    BFieldDirectionY:   0.0    BFieldDirectionZ:  0.0 //B-field direction vector (Bx, By, Bz)/B, no untis
 
  MediumMaterial:          "air"
@@ -91,10 +91,10 @@ InputNumber:         1
 ChannelNumber:       0
 Channels:            173056
 StripselUse:         0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
-Name:                "FSBB"
+Name:                "MIMOSA-28"
 Purpose:             "REF"
 Readout:             126
-MimosaType:          35
+MimosaType:          28
 AnalysisMode:        3
 InitialPedestal:     0
 InitialNoise:        0
@@ -105,15 +105,15 @@ AlignementU:         0.0
 AlignementV:         0.0
 AlignementTilt:      0.0
 SizeU:               10.000   SizeV:         10.000   SizeW:       0000.245
-StripsU:             416        StripsV:       416      StripsW:        1
-PitchU:              0000.0184  PitchV:      0000.0184  PitchW:      0000.000
+StripsU:             960        StripsV:       928      StripsW:        1
+PitchU:              0000.0207  PitchV:      0000.0207  PitchW:      0000.000
 Mapping:             1
 ThreshNeighbourSN:   0.
 ThreshSeedSN:        0.5
 MaxNStrips:          25
 MinNStrips:          1
 HitFinder:           1
-ClusterLimitU:       0000.045  V:           0000.067  W:           0000.000
+ClusterLimitU:       0000.042  V:           0000.042  W:           0000.000
 CommonRegions:       1
 // Status Primary Reference = 1., Secondary Reference = 2. DeviceUunderTest = 3.
 Status:              0
@@ -134,7 +134,8 @@ PlaneDigitization:    "AMSlorgaus"       // Digitization model
 PlaneDigitizeOcc:     1.0e-7         // average noise occupancy, only in case of digital output sensors
 PlaneDigitizeNoise:   14.0           // Noise in electrons
 PlaneDigitizeCalib:    1             // Calibration factor: from elec => ADC units
-PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+//PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+PlaneDigitizeThre:     1.0           // Threhold, mainly in case of digital output sensors
 PlaneDigitizeADCbits: 12             // number of ADC bits
 PlaneDigitizeADCMin:  0.0            // Lower level of ADC range, in volts
 PlaneDigitizeADCMax:  1.0            // Upper level of ADC range, in volts
@@ -147,10 +148,10 @@ InputNumber:       2
 ChannelNumber:     0
 Channels:          173056
 StripselUse:       0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
-Name:              "FSBB"
+Name:              "MIMOSA-28"
 Purpose:           "REF"
 Readout:           126
-MimosaType:        35
+MimosaType:        28
 AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
@@ -161,15 +162,15 @@ AlignementU:       0.0
 AlignementV:       0.0
 AlignementTilt:    0.0
 SizeU:               10.000   SizeV:         10.000   SizeW:       0000.245
-StripsU:           416        StripsV:       416      StripsW:        1
-PitchU:            0000.0184  PitchV:      0000.0184  PitchW:      0000.000
+StripsU:             960        StripsV:       928      StripsW:        1
+PitchU:              0000.0207  PitchV:      0000.0207  PitchW:      0000.000
 Mapping:           1
 ThreshNeighbourSN: 0.
 ThreshSeedSN:      0.5
 MaxNStrips:        25
 MinNStrips:        1
 HitFinder:         1
-ClusterLimitU:     0000.045  V:           0000.067  W:           0000.000
+ClusterLimitU:       0000.042  V:           0000.042  W:           0000.000
 CommonRegions:     1
 // Status Primary Reference = 1., Secondary Reference = 2. DeviceUunderTest = 3.
 Status:            1
@@ -184,7 +185,8 @@ PlaneDigitization:    "AMSlorgaus"       // Digitization model
 PlaneDigitizeOcc:     1.0e-7         // average noise occupancy, only in case of digital output sensors
 PlaneDigitizeNoise:   14.0           // Noise in electrons
 PlaneDigitizeCalib:    1             // Calibration factor: from elec => ADC units
-PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+//PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+PlaneDigitizeThre:     1.0           // Threhold, mainly in case of digital output sensors
 PlaneDigitizeADCbits: 12             // number of ADC bits
 PlaneDigitizeADCMin:  0.0            // Lower level of ADC range, in volts
 PlaneDigitizeADCMax:  1.0            // Upper level of ADC range, in volts
@@ -197,29 +199,29 @@ InputNumber:       3
 ChannelNumber:     0
 Channels:          173056
 StripselUse:       0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
-Name:              "FSBB"
+Name:              "MIMOSA-28"
 Purpose:           "REF"
 Readout:           126
-MimosaType:        35
+MimosaType:        28
 AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
 CacheSize:         5 
-PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   15.00000
+PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   15.00000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:       0.0
 AlignementV:       0.0
 AlignementTilt:    0.0
 SizeU:               10.000   SizeV:         10.000   SizeW:       0000.245
-StripsU:           416        StripsV:       416      StripsW:        1
-PitchU:            0000.0184  PitchV:      0000.0184  PitchW:      0000.000
+StripsU:             960        StripsV:       928      StripsW:        1
+PitchU:              0000.0207  PitchV:      0000.0207  PitchW:      0000.000
 Mapping:           1
 ThreshNeighbourSN: 0.
 ThreshSeedSN:      0.5
 MaxNStrips:        25
 MinNStrips:        1
 HitFinder:         1
-ClusterLimitU:     0000.045  V:           0000.067  W:           0000.000
+ClusterLimitU:     0000.042  V:           0000.042  W:           0000.000
 CommonRegions:     1
 // Status Primary Reference = 1., Secondary Reference = 2. DeviceUunderTest = 3.
 Status:            3
@@ -234,7 +236,8 @@ PlaneDigitization:    "AMSlorgaus"       // Digitization model
 PlaneDigitizeOcc:     1.0e-7         // average noise occupancy, only in case of digital output sensors
 PlaneDigitizeNoise:   14.0           // Noise in electrons
 PlaneDigitizeCalib:    1             // Calibration factor: from elec => ADC units
-PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+//PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+PlaneDigitizeThre:     1.0           // Threhold, mainly in case of digital output sensors
 PlaneDigitizeADCbits: 12             // number of ADC bits
 PlaneDigitizeADCMin:  0.0            // Lower level of ADC range, in volts
 PlaneDigitizeADCMax:  1.0            // Upper level of ADC range, in volts
@@ -247,29 +250,29 @@ InputNumber:       4
 ChannelNumber:     0
 Channels:          173056
 StripselUse:       0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
-Name:              "FSBB"
+Name:              "MIMOSA-28"
 Purpose:           "REF"
 Readout:           126
-MimosaType:        35
+MimosaType:        28
 AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
 CacheSize:         5 
-PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   20.00000
+PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   20.00000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:       0.0
 AlignementV:       0.0
 AlignementTilt:    0.0
 SizeU:               10.000   SizeV:         10.000   SizeW:       0000.245
-StripsU:           416        StripsV:       416      StripsW:        1
-PitchU:            0000.0184  PitchV:      0000.0184  PitchW:      0000.000
+StripsU:             960        StripsV:       928      StripsW:        1
+PitchU:              0000.0207  PitchV:      0000.0207  PitchW:      0000.000
 Mapping:           1
 ThreshNeighbourSN: 0.
 ThreshSeedSN:      0.5
 MaxNStrips:        25
 MinNStrips:        1
 HitFinder:         1
-ClusterLimitU:     0000.045  V:           0000.067  W:           0000.000
+ClusterLimitU:     0000.042  V:           0000.042  W:           0000.000
 CommonRegions:     1
 // Status Primary Reference = 1., Secondary Reference = 2. DeviceUunderTest = 3.
 Status:            2
@@ -284,7 +287,8 @@ PlaneDigitization:    "AMSlorgaus"       // Digitization model
 PlaneDigitizeOcc:     1.0e-7         // average noise occupancy, only in case of digital output sensors
 PlaneDigitizeNoise:   14.0           // Noise in electrons
 PlaneDigitizeCalib:    1             // Calibration factor: from elec => ADC units
-PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+//PlaneDigitizeThre:     8.0           // Threhold, mainly in case of digital output sensors
+PlaneDigitizeThre:     1.0           // Threhold, mainly in case of digital output sensors
 PlaneDigitizeADCbits: 12             // number of ADC bits
 PlaneDigitizeADCMin:  0.0            // Lower level of ADC range, in volts
 PlaneDigitizeADCMax:  1.0            // Upper level of ADC range, in volts
@@ -363,12 +367,12 @@ EventBuildingMode: 20
 //ClockOffset     3
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- PXIe  -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 Name:            "PXIe"
-Type:            52
+Type:            50
 Devices:         1
 Inputs:          6
-Channels:        173056
-Bits:            64
-SignificantBits: 64
+Channels:        890880
+Bits:            32
+SignificantBits: 32
 DataFile1:       " "
 
 // -+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+--+-+-+-+-+-
@@ -380,8 +384,10 @@ MaxNbOfHits:         1000
 MinNbOfHits:            0
 TrackChi2Limit:       2.0
 SavePlots:              0
+//SavePlots:              1
 DoTelResolutionMC:      0
-MCEvents:               1
+//MCEvents:               1
+MCEvents:               1000
 MCSeed:                 4248
 MCDoDisplay:            0
 ResolutionScanSteps:    15
