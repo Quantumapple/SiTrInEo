@@ -616,6 +616,7 @@ G4VPhysicalVolume* MimosaSimuDetectorConstruction::DefineVolumes()
 
   worldLV->SetVisAttributes(boxVisAtt);
   std::set<G4double> lZPos_list;
+  G4double temp_maxStep;
 
   for(G4int sensorID = 0; sensorID < fSetup->TrackerParameter.Planes; sensorID++) { //Looping over the planes to build the
     cout << "Sensor " << sensorID+1 << ": location = (" << SensorX[sensorID]/cm << "," << SensorY[sensorID]/cm << "," << SensorZ[sensorID]/cm << ") cm"
@@ -717,6 +718,7 @@ G4VPhysicalVolume* MimosaSimuDetectorConstruction::DefineVolumes()
       if(maxStep > SubstrateThickness) maxStep = SubstrateThickness;
     }
     maxStep *= thickness_fraction;
+    temp_maxStep = maxStep;
     //fStepLimit = new G4UserLimits(maxStep);
     
     G4double MinimumThickness = 1.0e-3*um;
@@ -728,7 +730,9 @@ G4VPhysicalVolume* MimosaSimuDetectorConstruction::DefineVolumes()
     fLogicMimosaSensor[sensorID]  = new G4LogicalVolume(solidMimosa,_material_map[fMaterial[sensorID]],LV_Name);
     fLogicMimosaSensor[sensorID]->SetVisAttributes(TheVisAtt);
     if(ReadOut[sensorID] <= 0) _ListOfAllLogicalVolumes.push_back(fLogicMimosaSensor[sensorID]);
-    
+    fPhysicMimosaSensor[sensorID] = new G4PVPlacement(rot[sensorID],SensorPosition[sensorID],PV_Name,fLogicMimosaSensor[sensorID],worldPV, false,0,fCheckOverlaps);
+    fLogicMimosaSensor[sensorID]->SetUserLimits(new G4UserLimits(maxStep));
+
     if(WithEpiMetalAndSubstrate) {
       if(MetalThickness     < MinimumThickness) MetalThickness     = MinimumThickness;
       if(SubstrateThickness < MinimumThickness) SubstrateThickness = MinimumThickness;
@@ -777,6 +781,7 @@ G4VPhysicalVolume* MimosaSimuDetectorConstruction::DefineVolumes()
   MagneticRegion_Position = G4ThreeVector(0,0,((*lZPos_listThird) + (*lZPos_listSecond) )/2.);
 
   fMagneticRegionLogical = new G4LogicalVolume(MagneticRegionBox,_material_map[fSetup->TrackerParameter.MediumMaterial],"MGR_LV");
+  fMagneticRegionLogical->SetUserLimits(new G4UserLimits(1.0));
   new G4PVPlacement(0,MagneticRegion_Position, fMagneticRegionLogical,"MGR_PV",worldLV,false,0,fCheckOverlaps);
 
 
