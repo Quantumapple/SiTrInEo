@@ -99,7 +99,8 @@ AnalysisMode:        3
 InitialPedestal:     0
 InitialNoise:        0
 CacheSize:           5 
-PositionsX:          0.000  PositionsY:   0.000  PositionsZ:    -20.000
+//PositionsX:          0.000  PositionsY:   0.000  PositionsZ:    -20.000
+PositionsX:          0.000  PositionsY:   -10.000  PositionsZ:    -20.000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:         0.0
 AlignementV:         0.0
@@ -156,7 +157,8 @@ AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
 CacheSize:         5 
-PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   -15.00000
+//PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   -15.00000
+PositionsX:        0.0000  PositionsY:   -10.0000  PositionsZ:   -15.00000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:       0.0
 AlignementV:       0.0
@@ -207,7 +209,8 @@ AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
 CacheSize:         5 
-PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   15.00000
+//PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   15.00000
+PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   15.00000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:       0.0
 AlignementV:       0.0
@@ -258,7 +261,8 @@ AnalysisMode:      3
 InitialPedestal:   0
 InitialNoise:      0
 CacheSize:         5 
-PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   20.00000
+//PositionsX:        0.0000  PositionsY:   20.0000  PositionsZ:   20.00000
+PositionsX:        0.0000  PositionsY:   0.0000  PositionsZ:   20.00000
 TiltZ:               0.000  TiltY:        0.000  TiltX:         0.000
 AlignementU:       0.0
 AlignementV:       0.0
@@ -387,7 +391,7 @@ SavePlots:              0
 //SavePlots:              1
 DoTelResolutionMC:      0
 //MCEvents:               1
-MCEvents:               1000
+MCEvents:               3000
 MCSeed:                 4248
 MCDoDisplay:            0
 ResolutionScanSteps:    15
