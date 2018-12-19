@@ -2,8 +2,8 @@
 
 clear
 
-#export DIGI_DIR="/Users/jeromeb/rawcmos/SVNMAC/CMOS/MIMOSA_DIGITIZER/trunk/"
-export DIGI_DIR="/home/jongho/Analysis/Strasbourg/MIMOSA_DIGITIZER/trunk/"
+#export DIGI_DIR="/Users/jeromeb/rawcmos/SVNMAC/CMOS/MIMOSA_DIGITIZER"
+export DIGI_DIR="/home/jongho/Analysis/Strasbourg/MIMOSA_DIGITIZER"
 #export GEANT4_BUILD_DIR="/home/aperez/Geant4/geant4.10.01.p02-build"
 export GEANT4_BUILD_DIR="/home/jongho/Software/geant4/build"
 echo "Path to build directory $GEANT4_BUILD_DIR "

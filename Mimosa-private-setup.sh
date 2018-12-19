@@ -30,6 +30,6 @@ export CLHEP_LIB_DIR="/usr/local/lib"
 ### Set environments for complie ###
 export DIGI_DIR="/home/jongho/Analysis/SiTrInEo/MIMOSA_DIGITIZER"
 export GEANT4_BUILD_DIR="/home/jongho/Software/geant4/build"
-source /home/jongho/Analysis/SiTrInEo/TestBeam_Geant4Simu_MagField/trunk/geant4make.sh
+source /home/jongho/Analysis/SiTrInEo/TestBeam_Geant4Simu_MagField/geant4make.sh
 echo "Path to build directory $GEANT4_BUILD_DIR "
 
