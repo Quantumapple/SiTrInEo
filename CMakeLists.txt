@@ -31,4 +31,4 @@ execute_process(
 # Add subdirectories
 #----------------------------------------------------------------------------
 add_subdirectory(MIMOSA_DIGITIZER)
-#add_subdirectory(TestBeam_Geant4Simu_MagField)
+add_subdirectory(TestBeam_Geant4Simu_MagField)

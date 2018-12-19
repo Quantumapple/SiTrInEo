@@ -6,7 +6,7 @@
 # Setup the project and require CMake version above 2.8
 #----------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-project(Project_MDIGIT)
+project(MDIGIT)
 
 #----------------------------------------------------------------------------
 # Find ROOT and setup it
@@ -21,7 +21,7 @@ endif()
 # Locate sources and headers for this project
 #----------------------------------------------------------------------------
 file(GLOB MDIGIT_SOURCES ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB MDIGIT_HEADERS ${PROJECT_BINARY_DIR}/include/*.hh)
+file(GLOB MDIGIT_HEADERS ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
 # Add the libraries and link it to the ROOT framework and MDIGIT library
@@ -40,7 +40,7 @@ target_include_directories(MDIGIT PUBLIC ${ROOT_INCLUDE_DIRS})
 #----------------------------------------------------------------------------
 # Expose this public includes to other subprojects through cache variable.
 #----------------------------------------------------------------------------
-set(${PROJECT_NAME}_INCLUDE_DIR ${PROJECT_BINARY_DIR}
+set(${PROJECT_NAME}_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include
   CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE)
 set(${PROJECT_NAME}_LIBRARY ${PROJECT_BINARY_DIR}/lib${PROJECT_NAME}.so
   CACHE INTERNAL "${PROJECT_NAME}: Path to library" FORCE)
