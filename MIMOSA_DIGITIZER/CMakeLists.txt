@@ -32,9 +32,9 @@ target_link_libraries(MDIGIT ${ROOT_LIBRARIES})
 #----------------------------------------------------------------------------
 # Setup global and local include directories for this project
 #----------------------------------------------------------------------------
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${ROOT_INCLUDE_DIRS})
-target_include_directories(MDIGIT PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(MDIGIT PUBLIC ${PROJECT_SOURCE_DIR})
 target_include_directories(MDIGIT PUBLIC ${ROOT_INCLUDE_DIRS})
 
 #----------------------------------------------------------------------------
