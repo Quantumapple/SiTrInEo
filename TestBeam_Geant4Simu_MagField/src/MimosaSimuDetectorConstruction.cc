@@ -877,9 +877,8 @@ void MimosaSimuDetectorConstruction::ConstructSDandField() {
     fMagneticRegionLogical->SetFieldManager(fMyMagneticFieldManager, true);
 
     // Register the field messenger for deleting
-    // G4AutoDelete::Register(fMagFieldMessenger);
+    G4AutoDelete::Register(fMagFieldMessenger);
     G4AutoDelete::Register(fMyMagneticField);
-    G4AutoDelete::Register(fMyMagneticFieldManager);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
