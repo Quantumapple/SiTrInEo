@@ -30,45 +30,38 @@
 
 #include "MimosaSimuRunAction.hh"
 
-#include "TString.h"
 #include "G4Run.hh"
 #include "G4RunManager.hh"
+#include "TString.h"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuRunAction::MimosaSimuRunAction(MimosaSimuSetup* TheSetup,
-                                         MimosaSimuHistoManager* TheHisto) : G4UserRunAction(),
-                                                                             fSetup(TheSetup),
-                                                                             fHisto(TheHisto)
-{ 
-  // set printing event number per each 100 events
-  G4RunManager::GetRunManager()->SetPrintProgress(1000);
-  
+MimosaSimuRunAction::MimosaSimuRunAction(MimosaSimuSetup *TheSetup,
+                                         MimosaSimuHistoManager *TheHisto)
+    : G4UserRunAction(), fSetup(TheSetup), fHisto(TheHisto) {
+    // set printing event number per each 100 events
+    G4RunManager::GetRunManager()->SetPrintProgress(1000);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuRunAction::~MimosaSimuRunAction()
-{}
+MimosaSimuRunAction::~MimosaSimuRunAction() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuRunAction::BeginOfRunAction(const G4Run*)
-{ 
-  //inform the runManager to save random number seed
-  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+void MimosaSimuRunAction::BeginOfRunAction(const G4Run *) {
+    // inform the runManager to save random number seed
+    G4RunManager::GetRunManager()->SetRandomNumberStore(false);
 
-  //Booking the n-tuples and histos
-  fHisto->book();
-  
+    // Booking the n-tuples and histos
+    fHisto->book();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuRunAction::EndOfRunAction(const G4Run* )
-{
-  //Saving the n-tuples and histos
-  fHisto->save(); 
+void MimosaSimuRunAction::EndOfRunAction(const G4Run *) {
+    // Saving the n-tuples and histos
+    fHisto->save();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

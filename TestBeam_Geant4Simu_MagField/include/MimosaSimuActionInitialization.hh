@@ -31,30 +31,26 @@
 #ifndef MimosaSimuActionInitialization_h
 #define MimosaSimuActionInitialization_h 1
 
-#include "MimosaSimuSetup.hh"
-#include "MimosaSimuHistoManager.hh"
 #include "G4VUserActionInitialization.hh"
+#include "MimosaSimuHistoManager.hh"
+#include "MimosaSimuSetup.hh"
 
 class MimosaSimuDetectorConstruction;
 
 /// Action initialization class.
 ///
-class MimosaSimuActionInitialization : public G4VUserActionInitialization
-{
+class MimosaSimuActionInitialization : public G4VUserActionInitialization {
   public:
-    MimosaSimuActionInitialization(MimosaSimuSetup* TheSetup,
-                                   MimosaSimuHistoManager* TheHisto);
+    MimosaSimuActionInitialization(MimosaSimuSetup *TheSetup, MimosaSimuHistoManager *TheHisto);
     virtual ~MimosaSimuActionInitialization();
 
     virtual void BuildForMaster() const;
     virtual void Build() const;
-    
+
   private:
-    MimosaSimuSetup* fSetup;
-    MimosaSimuHistoManager* fHisto;
-    
+    MimosaSimuSetup *fSetup;
+    MimosaSimuHistoManager *fHisto;
 };
 
 #endif
 
-    

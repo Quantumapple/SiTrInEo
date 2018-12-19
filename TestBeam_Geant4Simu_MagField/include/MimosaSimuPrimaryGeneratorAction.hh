@@ -31,16 +31,16 @@
 #ifndef MimosaSimuPrimaryGeneratorAction_h
 #define MimosaSimuPrimaryGeneratorAction_h 1
 
-#include "G4VUserPrimaryGeneratorAction.hh"
-#include "MimosaSimuSetup.hh"
-#include "globals.hh"
-#include "G4ParticleDefinition.hh"
-#include "CLHEP/Random/Randomize.h"
+#include "CLHEP/Random/MTwistEngine.h"
 #include "CLHEP/Random/RandFlat.h"
 #include "CLHEP/Random/RandomEngine.h"
-#include "CLHEP/Random/MTwistEngine.h"
+#include "CLHEP/Random/Randomize.h"
+#include "G4ParticleDefinition.hh"
 #include "G4RotationMatrix.hh"
+#include "G4VUserPrimaryGeneratorAction.hh"
+#include "MimosaSimuSetup.hh"
 #include "TH1F.h"
+#include "globals.hh"
 #include <map>
 
 class G4ParticleGun;
@@ -48,98 +48,96 @@ class G4Event;
 
 /// The primary generator action class with particle gum.
 ///
-/// It defines a single particle which hits the Tracker 
+/// It defines a single particle which hits the Tracker
 /// perpendicular to the input face. The type of the particle
-/// can be changed via the G4 build-in commands of G4ParticleGun class 
+/// can be changed via the G4 build-in commands of G4ParticleGun class
 /// (see the macros provided with this example).
 
 using namespace CLHEP;
 
-class MimosaSimuPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
-{
+class MimosaSimuPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
   public:
     MimosaSimuPrimaryGeneratorAction(MimosaSimuSetup *TheSetup);
     virtual ~MimosaSimuPrimaryGeneratorAction();
 
-    virtual void GeneratePrimaries(G4Event* );
+    virtual void GeneratePrimaries(G4Event *);
 
-    G4ParticleGun* GetParticleGun() {return fParticleGun;}
-  
+    G4ParticleGun *GetParticleGun() { return fParticleGun; }
+
     // Set methods
-    void   SetRandomFlag(G4bool);
-    
-    void   InitGenerationParameters(void);
-    void   DoUniformBeamTestInit(void);
-    void   DoBeamSpotBeamTestInit(void);
-    void   DoSourceInit(void);
-    
-    void   FillParticleMap(void);
-    void   CheckIfParticleIsInMap(TString AParticle);
-    
-    void   InitBetaSourceSpectrum(TString SourceName);
-    void   InitXRaySourceSpectrum(TString SourceName);
-    
-    void   GenerateBeamTestPrimaries(G4Event* anEvent);
-    void   GenerateSourcePrimaries(G4Event* anEvent);
+    void SetRandomFlag(G4bool);
+
+    void InitGenerationParameters(void);
+    void DoUniformBeamTestInit(void);
+    void DoBeamSpotBeamTestInit(void);
+    void DoSourceInit(void);
+
+    void FillParticleMap(void);
+    void CheckIfParticleIsInMap(TString AParticle);
+
+    void InitBetaSourceSpectrum(TString SourceName);
+    void InitXRaySourceSpectrum(TString SourceName);
+
+    void GenerateBeamTestPrimaries(G4Event *anEvent);
+    void GenerateSourcePrimaries(G4Event *anEvent);
 
   private:
-    G4ParticleGun*          fParticleGun; // G4 particle gun
+    G4ParticleGun *fParticleGun; // G4 particle gun
     MimosaSimuSetup *fSetup;
-    
+
     G4double nParticles;
     G4long mySeed;
     G4long myOldSeed;
-    HepRandomEngine* theRandomEngine;
-    RandGaussQ*      Mygauss;
-    RandPoissonQ*    Mypoisson;
+    HepRandomEngine *theRandomEngine;
+    RandGaussQ *Mygauss;
+    RandPoissonQ *Mypoisson;
 
     TString TheParticle;
-    
-    //Beam-Test generation parameters
-    G4double       TheBeamMomentum;
-    G4ThreeVector  TheBeamDirection;
-    G4double       TheBeamAngularSpreadX;
-    G4double       TheBeamAngularSpreadY;
-    G4double       TheBeamMomentumSpread;
-    G4ThreeVector  TheBeamOrigin;
-    G4double       TheBeamOriginSpreadX;
-    G4double       TheBeamOriginSpreadY;
-    bool           UniformOriginGeneration;
-    G4ThreeVector  PerpXprime;
-    G4ThreeVector  PerpYprime;
-    
-    //Source generation parameters
-    TString                SourceType;
-    G4double               SourceRadius;
-    G4double               SourceHight;
-    G4double               SourceActivity;
-    G4double               SourceSensorROTime;
-    G4ThreeVector          SourcePosition;
-    G4RotationMatrix*      Source_rot;
-    G4RotationMatrix*      Source_Invrot;
-    G4ThreeVector          SourceLocalXVector;
-    G4ThreeVector          SourceLocalYVector;
-    G4ThreeVector          SourceLocalZVector;
-    TH1F                   h_SourceBetaSpectrum;
-    std::vector<G4double>  XRayLinesEnergy;
-    std::vector<G4double>  XRayLinesProb;
-    std::vector<G4double>  XRayLinesCumulProb;
 
-    std::map<TString,G4ParticleDefinition*> particle_map;
-    
+    // Beam-Test generation parameters
+    G4double TheBeamMomentum;
+    G4ThreeVector TheBeamDirection;
+    G4double TheBeamAngularSpreadX;
+    G4double TheBeamAngularSpreadY;
+    G4double TheBeamMomentumSpread;
+    G4ThreeVector TheBeamOrigin;
+    G4double TheBeamOriginSpreadX;
+    G4double TheBeamOriginSpreadY;
+    bool UniformOriginGeneration;
+    G4ThreeVector PerpXprime;
+    G4ThreeVector PerpYprime;
+
+    // Source generation parameters
+    TString SourceType;
+    G4double SourceRadius;
+    G4double SourceHight;
+    G4double SourceActivity;
+    G4double SourceSensorROTime;
+    G4ThreeVector SourcePosition;
+    G4RotationMatrix *Source_rot;
+    G4RotationMatrix *Source_Invrot;
+    G4ThreeVector SourceLocalXVector;
+    G4ThreeVector SourceLocalYVector;
+    G4ThreeVector SourceLocalZVector;
+    TH1F h_SourceBetaSpectrum;
+    std::vector<G4double> XRayLinesEnergy;
+    std::vector<G4double> XRayLinesProb;
+    std::vector<G4double> XRayLinesCumulProb;
+
+    std::map<TString, G4ParticleDefinition *> particle_map;
+
     void GetPerpendicularFrame(void);
-    
+
     bool IsBetaSource(TString SourceName);
     bool IsXRaySource(TString SourceName);
-    
-    G4double  Mom_beta_spectrum_pdf(G4double p,G4double Q,G4double Z,bool InclFermi);
-    //G4double  Fermi_func(G4double p,G4double Q,G4double Z);
-    G4double  Fermi_func(G4double p,G4double Z);
-    
-    G4double  GetSourceRandomMomentum(void);
-    G4double  GetBetaSourceRandomMomentum(void);
-    G4double  GetXRaySourceRandomMomentum(void);
-    
+
+    G4double Mom_beta_spectrum_pdf(G4double p, G4double Q, G4double Z, bool InclFermi);
+    // G4double  Fermi_func(G4double p,G4double Q,G4double Z);
+    G4double Fermi_func(G4double p, G4double Z);
+
+    G4double GetSourceRandomMomentum(void);
+    G4double GetBetaSourceRandomMomentum(void);
+    G4double GetXRaySourceRandomMomentum(void);
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

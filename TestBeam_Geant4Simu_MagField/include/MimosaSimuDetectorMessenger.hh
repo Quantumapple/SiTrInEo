@@ -31,8 +31,8 @@
 #ifndef MimosaSimuDetectorMessenger_h
 #define MimosaSimuDetectorMessenger_h 1
 
-#include "globals.hh"
 #include "G4UImessenger.hh"
+#include "globals.hh"
 
 class MimosaSimuDetectorConstruction;
 class G4UIdirectory;
@@ -47,23 +47,22 @@ class G4UIcmdWithADoubleAndUnit;
 /// - /MimosaSimu/det/setSensorMaterial name
 /// - /MimosaSimu/det/stepMax value unit
 
-class MimosaSimuDetectorMessenger: public G4UImessenger
-{
+class MimosaSimuDetectorMessenger : public G4UImessenger {
   public:
-    MimosaSimuDetectorMessenger(MimosaSimuDetectorConstruction* );
+    MimosaSimuDetectorMessenger(MimosaSimuDetectorConstruction *);
     virtual ~MimosaSimuDetectorMessenger();
-    
-    virtual void SetNewValue(G4UIcommand*, G4String);
-    
+
+    virtual void SetNewValue(G4UIcommand *, G4String);
+
   private:
-    MimosaSimuDetectorConstruction*  fDetectorConstruction;
+    MimosaSimuDetectorConstruction *fDetectorConstruction;
 
-    G4UIdirectory*           fMimosaSimuDirectory;
-    G4UIdirectory*           fDetDirectory;
+    G4UIdirectory *fMimosaSimuDirectory;
+    G4UIdirectory *fDetDirectory;
 
-    G4UIcmdWithAString*      fSensorMatCmd;
+    G4UIcmdWithAString *fSensorMatCmd;
 
-    G4UIcmdWithADoubleAndUnit* fStepMaxCmd;
+    G4UIcmdWithADoubleAndUnit *fStepMaxCmd;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

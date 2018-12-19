@@ -37,7 +37,7 @@
 
 #include <vector>
 
-//class MimosaSimuDetectorConstruction;
+// class MimosaSimuDetectorConstruction;
 class G4Step;
 class G4HCofThisEvent;
 
@@ -46,47 +46,44 @@ class G4HCofThisEvent;
 /// MimosaSimuTracker sensitive detector class
 ///
 /// The hits are accounted in hits in ProcessHits() function which is called
-/// by Geant4 kernel at each step. A hit is created with each step with non zero 
+/// by Geant4 kernel at each step. A hit is created with each step with non zero
 /// energy deposit.
 
-class MimosaSimuTrackerSD : public G4VSensitiveDetector
-{
+class MimosaSimuTrackerSD : public G4VSensitiveDetector {
   public:
-    MimosaSimuTrackerSD(const G4String& name, 
-                        const G4String& hitsCollectionName,
-			const G4int TheSensorID,
-			const bool  verbose);
+    MimosaSimuTrackerSD(const G4String &name, const G4String &hitsCollectionName,
+                        const G4int TheSensorID, const bool verbose);
     virtual ~MimosaSimuTrackerSD();
-  
+
     // methods from base class
-    virtual void   Initialize(G4HCofThisEvent* hitCollection);
-    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
-    virtual void   EndOfEvent(G4HCofThisEvent* hitCollection);
-    
-    void  SetSensorID(G4int mySensorID){ sensorID = mySensorID; };
-    G4int GetSensorID()                { return sensorID; };
+    virtual void Initialize(G4HCofThisEvent *hitCollection);
+    virtual G4bool ProcessHits(G4Step *step, G4TouchableHistory *history);
+    virtual void EndOfEvent(G4HCofThisEvent *hitCollection);
+
+    void SetSensorID(G4int mySensorID) { sensorID = mySensorID; };
+    G4int GetSensorID() { return sensorID; };
 
   private:
-    MimosaSimuTrackerHitsCollection* fHitsCollection;
+    MimosaSimuTrackerHitsCollection *fHitsCollection;
     G4int sensorID;
-    bool  verbosity;
-   
-    G4int           fTrackID;              // particle track ID
-    G4int           fTrackPDGCode;         // Particle pdg ID producing hit
-    G4int           fMimosaSensorID;       // Sendor ID
-    G4double        fEdep;                 // Deposited energy by ionization
-    G4ThreeVector   fPos;                  // Average (X,Y,Z) position between 1st and last step in lab frame
-    G4ThreeVector   fStepLength;           // Step length
-    G4ThreeVector   fFirstStepPos;         // entrance (X,Y,Z) position in lab frame
-    G4ThreeVector   fFirstStepPosLocal;    // entrance (U,V,W) position in sensor local frame
-    G4ThreeVector   fFirstStepLocalAngles; // entrance (theta,phi,nothing) angles in sensor local frame
-    G4double        fFirstStepTime;        // time at entrance
-    G4ThreeVector   fLastStepPos;          // exit (X,Y,Z) position in lab frame
-    G4ThreeVector   fLastStepPosLocal;     // exit (U,V,W) position in sensor local frame
-    G4double        fLastStepTime;         // time at exit
-    G4LorentzVector fFirstStep4Vector;     // 4-momentum at entrance
-    G4LorentzVector fLastStep4Vector;      // 4-momentum at exit
-    
+    bool verbosity;
+
+    G4int fTrackID;              // particle track ID
+    G4int fTrackPDGCode;         // Particle pdg ID producing hit
+    G4int fMimosaSensorID;       // Sendor ID
+    G4double fEdep;              // Deposited energy by ionization
+    G4ThreeVector fPos;          // Average (X,Y,Z) position between 1st and last step in lab frame
+    G4ThreeVector fStepLength;   // Step length
+    G4ThreeVector fFirstStepPos; // entrance (X,Y,Z) position in lab frame
+    G4ThreeVector fFirstStepPosLocal; // entrance (U,V,W) position in sensor local frame
+    G4ThreeVector
+        fFirstStepLocalAngles;         // entrance (theta,phi,nothing) angles in sensor local frame
+    G4double fFirstStepTime;           // time at entrance
+    G4ThreeVector fLastStepPos;        // exit (X,Y,Z) position in lab frame
+    G4ThreeVector fLastStepPosLocal;   // exit (U,V,W) position in sensor local frame
+    G4double fLastStepTime;            // time at exit
+    G4LorentzVector fFirstStep4Vector; // 4-momentum at entrance
+    G4LorentzVector fLastStep4Vector;  // 4-momentum at exit
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -31,10 +31,10 @@
 #ifndef MimosaSimuRunAction_h
 #define MimosaSimuRunAction_h 1
 
-#include "g4root.hh"
-#include "MimosaSimuSetup.hh"
-#include "MimosaSimuHistoManager.hh"
 #include "G4UserRunAction.hh"
+#include "MimosaSimuHistoManager.hh"
+#include "MimosaSimuSetup.hh"
+#include "g4root.hh"
 #include "globals.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -43,20 +43,17 @@ class G4Run;
 
 /// Run action class
 
-class MimosaSimuRunAction : public G4UserRunAction
-{
+class MimosaSimuRunAction : public G4UserRunAction {
   public:
-    MimosaSimuRunAction(MimosaSimuSetup* TheSetup,
-                        MimosaSimuHistoManager* TheHisto);
+    MimosaSimuRunAction(MimosaSimuSetup *TheSetup, MimosaSimuHistoManager *TheHisto);
     virtual ~MimosaSimuRunAction();
 
-    virtual void  BeginOfRunAction(const G4Run* run);
-    virtual void  EndOfRunAction(const G4Run* run);
-    
+    virtual void BeginOfRunAction(const G4Run *run);
+    virtual void EndOfRunAction(const G4Run *run);
+
   private:
-    MimosaSimuSetup* fSetup;
-    MimosaSimuHistoManager* fHisto;
-    
+    MimosaSimuSetup *fSetup;
+    MimosaSimuHistoManager *fHisto;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

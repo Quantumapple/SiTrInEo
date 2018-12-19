@@ -29,40 +29,36 @@
 /// \brief Implementation of the MimosaSimuActionInitialization class
 
 #include "MimosaSimuActionInitialization.hh"
+#include "MimosaSimuEventAction.hh"
 #include "MimosaSimuPrimaryGeneratorAction.hh"
 #include "MimosaSimuRunAction.hh"
-#include "MimosaSimuEventAction.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuActionInitialization::MimosaSimuActionInitialization(MimosaSimuSetup* TheSetup,
-                                                               MimosaSimuHistoManager* TheHisto) : G4VUserActionInitialization()
-{
-  
-  fSetup = TheSetup;
-  fHisto = TheHisto;
-  
+MimosaSimuActionInitialization::MimosaSimuActionInitialization(MimosaSimuSetup *TheSetup,
+                                                               MimosaSimuHistoManager *TheHisto)
+    : G4VUserActionInitialization() {
+
+    fSetup = TheSetup;
+    fHisto = TheHisto;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuActionInitialization::~MimosaSimuActionInitialization()
-{}
+MimosaSimuActionInitialization::~MimosaSimuActionInitialization() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuActionInitialization::BuildForMaster() const
-{
-  SetUserAction(new MimosaSimuRunAction(fSetup,fHisto));
+void MimosaSimuActionInitialization::BuildForMaster() const {
+    SetUserAction(new MimosaSimuRunAction(fSetup, fHisto));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuActionInitialization::Build() const
-{
-  SetUserAction(new MimosaSimuPrimaryGeneratorAction(fSetup));
-  SetUserAction(new MimosaSimuRunAction(fSetup,fHisto));
-  SetUserAction(new MimosaSimuEventAction(fHisto,fSetup));
-}  
+void MimosaSimuActionInitialization::Build() const {
+    SetUserAction(new MimosaSimuPrimaryGeneratorAction(fSetup));
+    SetUserAction(new MimosaSimuRunAction(fSetup, fHisto));
+    SetUserAction(new MimosaSimuEventAction(fHisto, fSetup));
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

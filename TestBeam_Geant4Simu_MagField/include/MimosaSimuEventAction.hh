@@ -41,23 +41,20 @@
 
 /// Event action class
 
-class MimosaSimuEventAction : public G4UserEventAction
-{
+class MimosaSimuEventAction : public G4UserEventAction {
   public:
-    MimosaSimuEventAction(MimosaSimuHistoManager* TheHisto,
-			  MimosaSimuSetup*        TheSetup);
+    MimosaSimuEventAction(MimosaSimuHistoManager *TheHisto, MimosaSimuSetup *TheSetup);
     virtual ~MimosaSimuEventAction();
 
-    virtual void  BeginOfEventAction(const G4Event* );
-    virtual void    EndOfEventAction(const G4Event* );
-    
+    virtual void BeginOfEventAction(const G4Event *);
+    virtual void EndOfEventAction(const G4Event *);
+
   private:
-    MimosaSimuHistoManager* fHisto;
-    MimosaSimuSetup*        fSetup;
+    MimosaSimuHistoManager *fHisto;
+    MimosaSimuSetup *fSetup;
     bool verbosity;
     G4int fPrintFreq;
     TStopwatch fWatch;
-
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

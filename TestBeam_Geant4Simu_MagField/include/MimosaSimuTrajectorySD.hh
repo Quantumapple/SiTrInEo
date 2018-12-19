@@ -37,7 +37,7 @@
 
 #include <vector>
 
-//class MimosaSimuDetectorConstruction;
+// class MimosaSimuDetectorConstruction;
 class G4Step;
 class G4HCofThisEvent;
 
@@ -46,26 +46,23 @@ class G4HCofThisEvent;
 /// MimosaSimuTracker sensitive detector class
 ///
 /// The hits are accounted in hits in ProcessHits() function which is called
-/// by Geant4 kernel at each step. A hit is created with each step with non zero 
+/// by Geant4 kernel at each step. A hit is created with each step with non zero
 /// energy deposit.
 
-class MimosaSimuTrajectorySD : public G4VSensitiveDetector
-{
+class MimosaSimuTrajectorySD : public G4VSensitiveDetector {
   public:
-    MimosaSimuTrajectorySD(const G4String& name, 
-                           const G4String& hitsCollectionName,
-			   const bool  verbose);
+    MimosaSimuTrajectorySD(const G4String &name, const G4String &hitsCollectionName,
+                           const bool verbose);
     virtual ~MimosaSimuTrajectorySD();
-  
+
     // methods from base class
-    virtual void   Initialize(G4HCofThisEvent* hitCollection);
-    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
-    virtual void   EndOfEvent(G4HCofThisEvent* hitCollection);
+    virtual void Initialize(G4HCofThisEvent *hitCollection);
+    virtual G4bool ProcessHits(G4Step *step, G4TouchableHistory *history);
+    virtual void EndOfEvent(G4HCofThisEvent *hitCollection);
 
   private:
-    MimosaSimuTrajectoryHitsCollection* fTrajectoryHitsCollection;
-    bool  verbosity;
-    
+    MimosaSimuTrajectoryHitsCollection *fTrajectoryHitsCollection;
+    bool verbosity;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

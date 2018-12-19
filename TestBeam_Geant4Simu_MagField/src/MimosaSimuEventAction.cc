@@ -33,119 +33,117 @@
 
 #include "G4Event.hh"
 #include "G4EventManager.hh"
-#include "G4TrajectoryContainer.hh"
 #include "G4Trajectory.hh"
+#include "G4TrajectoryContainer.hh"
 #include "G4ios.hh"
-#include "g4root.hh"
 #include "MimosaSimuTrackerHit.hh"
 #include "MimosaSimuTrajectoryHit.hh"
+#include "g4root.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuEventAction::MimosaSimuEventAction(MimosaSimuHistoManager* TheHisto,
-					     MimosaSimuSetup*        TheSetup) : G4UserEventAction(),
-                                                                                 fHisto(TheHisto),
-                                                                                 fSetup(TheSetup),
-                                                                                 fPrintFreq(1)
-{
-  
-  verbosity = fSetup->GetAnalysisPar().SavePlots;
-  
-  fWatch.Start();
-  
+MimosaSimuEventAction::MimosaSimuEventAction(MimosaSimuHistoManager *TheHisto,
+                                             MimosaSimuSetup *TheSetup)
+    : G4UserEventAction(), fHisto(TheHisto), fSetup(TheSetup), fPrintFreq(1) {
+
+    verbosity = fSetup->GetAnalysisPar().SavePlots;
+
+    fWatch.Start();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuEventAction::~MimosaSimuEventAction()
-{}
+MimosaSimuEventAction::~MimosaSimuEventAction() {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuEventAction::BeginOfEventAction(const G4Event* event)
-{
+void MimosaSimuEventAction::BeginOfEventAction(const G4Event *event) {
 
-  if(verbosity) {
-    G4cout << G4endl;
-    G4cout << "Beging of Event " << event->GetEventID()+1 << G4endl;
-  }
-  
-  //if(!((event->GetEventID()+1)%fPrintFreq)) G4cout << event->GetEventID()+1 << " simulated events!!!" << G4endl;
-  if(!((event->GetEventID()+1)%fPrintFreq)) {
-    cout << event->GetEventID()+1 << " simulated events!!!  ";
-    fWatch.Print();
-    fWatch.Continue();
-  }
-  if(fPrintFreq < 100000) {
-    if((event->GetEventID()+1) == 10*fPrintFreq) fPrintFreq *= 10;
-  }
+    if (verbosity) {
+        G4cout << G4endl;
+        G4cout << "Beging of Event " << event->GetEventID() + 1 << G4endl;
+    }
 
+    // if(!((event->GetEventID()+1)%fPrintFreq)) G4cout << event->GetEventID()+1 << " simulated
+    // events!!!" << G4endl;
+    if (!((event->GetEventID() + 1) % fPrintFreq)) {
+        cout << event->GetEventID() + 1 << " simulated events!!!  ";
+        fWatch.Print();
+        fWatch.Continue();
+    }
+    if (fPrintFreq < 100000) {
+        if ((event->GetEventID() + 1) == 10 * fPrintFreq) fPrintFreq *= 10;
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuEventAction::EndOfEventAction(const G4Event* event)
-{
-  
-  // get number of stored trajectories
-  //G4TrajectoryContainer* trajectoryContainer = event->GetTrajectoryContainer();
-  //G4int n_trajectories = 0;
-  //if (trajectoryContainer) n_trajectories = trajectoryContainer->entries();
-  
-  G4int nPlanes = fSetup->TrackerParameter.Planes;
-  G4int counter = 0;
+void MimosaSimuEventAction::EndOfEventAction(const G4Event *event) {
 
-  for(G4int iPlane=0;iPlane<nPlanes;iPlane++) {
-    TString MyCollectionName = TString("MimosaSensorHitsCollection") + long(iPlane+1);
-    for(G4int icoll=0;icoll<event->GetHCofThisEvent()->GetNumberOfCollections();icoll++) {
-      TString TheCollName(event->GetHCofThisEvent()->GetHC(icoll)->GetName().data());
-      if(MyCollectionName == TheCollName) {
-	MimosaSimuTrackerHitsCollection* hc = (MimosaSimuTrackerHitsCollection*)event->GetHCofThisEvent()->GetHC(icoll);
-        if(verbosity) G4cout << "    "  << hc->GetSize() << " hits stored in collection " << hc->GetName().data() << " for this event." << G4endl;
-	for(G4int ihit=0; ihit<hc->entries();ihit++) {
-          fHisto->FillMimosaArray((*hc)[ihit],counter); 
-          counter++;
+    // get number of stored trajectories
+    // G4TrajectoryContainer* trajectoryContainer = event->GetTrajectoryContainer();
+    // G4int n_trajectories = 0;
+    // if (trajectoryContainer) n_trajectories = trajectoryContainer->entries();
+
+    G4int nPlanes = fSetup->TrackerParameter.Planes;
+    G4int counter = 0;
+
+    for (G4int iPlane = 0; iPlane < nPlanes; iPlane++) {
+        TString MyCollectionName = TString("MimosaSensorHitsCollection") + long(iPlane + 1);
+        for (G4int icoll = 0; icoll < event->GetHCofThisEvent()->GetNumberOfCollections();
+             icoll++) {
+            TString TheCollName(event->GetHCofThisEvent()->GetHC(icoll)->GetName().data());
+            if (MyCollectionName == TheCollName) {
+                MimosaSimuTrackerHitsCollection *hc =
+                    (MimosaSimuTrackerHitsCollection *)event->GetHCofThisEvent()->GetHC(icoll);
+                if (verbosity)
+                    G4cout << "    " << hc->GetSize() << " hits stored in collection "
+                           << hc->GetName().data() << " for this event." << G4endl;
+                for (G4int ihit = 0; ihit < hc->entries(); ihit++) {
+                    fHisto->FillMimosaArray((*hc)[ihit], counter);
+                    counter++;
+                }
+                break;
+            }
         }
-	break;
-      }
     }
-  }
-  
-  if(verbosity) G4cout << "   total number of Mimosa Hits = " << counter << G4endl;
-  
-  counter = 0;
-  for(G4int icoll=0;icoll<event->GetHCofThisEvent()->GetNumberOfCollections();icoll++) {
-    TString TheCollName(event->GetHCofThisEvent()->GetHC(icoll)->GetName().data());
-    
-    bool IsSensitive = false;
-    for(G4int iPlane=0;iPlane<nPlanes;iPlane++) {
-      TString MyCollectionName = TString("MimosaSensorHitsCollection") + long(iPlane+1);
-      if(MyCollectionName == TheCollName) {
-	IsSensitive = true;
-	break;
-      }
-    }
-    
-    if(IsSensitive) continue;
-    
-    MimosaSimuTrajectoryHitsCollection* hc = (MimosaSimuTrajectoryHitsCollection*)event->GetHCofThisEvent()->GetHC(icoll);
-    if(verbosity) G4cout << "    "  << hc->GetSize() << " hits stored in collection " << hc->GetName().data() << " for this event." << G4endl;
-    for(G4int ihit=0; ihit<hc->entries();ihit++) {
-      fHisto->FillNonSensitiveArray((*hc)[ihit],counter); 
-      counter++;
-    }
-    
-  }
-  if(verbosity) G4cout << "   total number of Non-sensitive Hits = " << counter << G4endl;
-  
-  fHisto->FillTreeBlocks();
-  
-  fHisto->FillNtuple();
-  
-  if(verbosity) {
-    G4cout << "End of Event " << event->GetEventID()+1 << G4endl;
-    G4cout << G4endl;
-  }
 
-}  
+    if (verbosity) G4cout << "   total number of Mimosa Hits = " << counter << G4endl;
+
+    counter = 0;
+    for (G4int icoll = 0; icoll < event->GetHCofThisEvent()->GetNumberOfCollections(); icoll++) {
+        TString TheCollName(event->GetHCofThisEvent()->GetHC(icoll)->GetName().data());
+
+        bool IsSensitive = false;
+        for (G4int iPlane = 0; iPlane < nPlanes; iPlane++) {
+            TString MyCollectionName = TString("MimosaSensorHitsCollection") + long(iPlane + 1);
+            if (MyCollectionName == TheCollName) {
+                IsSensitive = true;
+                break;
+            }
+        }
+
+        if (IsSensitive) continue;
+
+        MimosaSimuTrajectoryHitsCollection *hc =
+            (MimosaSimuTrajectoryHitsCollection *)event->GetHCofThisEvent()->GetHC(icoll);
+        if (verbosity)
+            G4cout << "    " << hc->GetSize() << " hits stored in collection "
+                   << hc->GetName().data() << " for this event." << G4endl;
+        for (G4int ihit = 0; ihit < hc->entries(); ihit++) {
+            fHisto->FillNonSensitiveArray((*hc)[ihit], counter);
+            counter++;
+        }
+    }
+    if (verbosity) G4cout << "   total number of Non-sensitive Hits = " << counter << G4endl;
+
+    fHisto->FillTreeBlocks();
+
+    fHisto->FillNtuple();
+
+    if (verbosity) {
+        G4cout << "End of Event " << event->GetEventID() + 1 << G4endl;
+        G4cout << G4endl;
+    }
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -24,63 +24,59 @@
 // ********************************************************************
 //
 // $Id: MimosaSimuDetectorMessenger.cc 69706 2013-05-13 09:12:40Z gcosmo $
-// 
+//
 /// \file MimosaSimuDetectorMessenger.cc
 /// \brief Implementation of the MimosaSimuDetectorMessenger class
 
 #include "MimosaSimuDetectorMessenger.hh"
 #include "MimosaSimuDetectorConstruction.hh"
 
-#include "G4UIdirectory.hh"
-#include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWithAString.hh"
+#include "G4UIdirectory.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuDetectorMessenger::MimosaSimuDetectorMessenger(MimosaSimuDetectorConstruction* Det)
- : G4UImessenger(),
-   fDetectorConstruction(Det)
-{
-  fMimosaSimuDirectory = new G4UIdirectory("/MimosaSimu/");
-  fMimosaSimuDirectory->SetGuidance("UI commands specific to this example.");
+MimosaSimuDetectorMessenger::MimosaSimuDetectorMessenger(MimosaSimuDetectorConstruction *Det)
+    : G4UImessenger(), fDetectorConstruction(Det) {
+    fMimosaSimuDirectory = new G4UIdirectory("/MimosaSimu/");
+    fMimosaSimuDirectory->SetGuidance("UI commands specific to this example.");
 
-  fDetDirectory = new G4UIdirectory("/MimosaSimu/det/");
-  fDetDirectory->SetGuidance("Detector construction control");
+    fDetDirectory = new G4UIdirectory("/MimosaSimu/det/");
+    fDetDirectory->SetGuidance("Detector construction control");
 
-  fSensorMatCmd = new G4UIcmdWithAString("/MimosaSimu/det/setSensorMaterial",this);
-  fSensorMatCmd->SetGuidance("Select Material of the Sensor.");
-  fSensorMatCmd->SetParameterName("choice",false);
-  fSensorMatCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+    fSensorMatCmd = new G4UIcmdWithAString("/MimosaSimu/det/setSensorMaterial", this);
+    fSensorMatCmd->SetGuidance("Select Material of the Sensor.");
+    fSensorMatCmd->SetParameterName("choice", false);
+    fSensorMatCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
-  fStepMaxCmd = new G4UIcmdWithADoubleAndUnit("/MimosaSimu/det/stepMax",this);
-  fStepMaxCmd->SetGuidance("Define a step max");
-  fStepMaxCmd->SetParameterName("stepMax",false);
-  fStepMaxCmd->SetUnitCategory("Length");
-  fStepMaxCmd->AvailableForStates(G4State_Idle);
+    fStepMaxCmd = new G4UIcmdWithADoubleAndUnit("/MimosaSimu/det/stepMax", this);
+    fStepMaxCmd->SetGuidance("Define a step max");
+    fStepMaxCmd->SetParameterName("stepMax", false);
+    fStepMaxCmd->SetUnitCategory("Length");
+    fStepMaxCmd->AvailableForStates(G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MimosaSimuDetectorMessenger::~MimosaSimuDetectorMessenger()
-{
-  delete fSensorMatCmd;
-  delete fStepMaxCmd;
-  delete fMimosaSimuDirectory;
-  delete fDetDirectory;
+MimosaSimuDetectorMessenger::~MimosaSimuDetectorMessenger() {
+    delete fSensorMatCmd;
+    delete fStepMaxCmd;
+    delete fMimosaSimuDirectory;
+    delete fDetDirectory;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void MimosaSimuDetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
-{
+void MimosaSimuDetectorMessenger::SetNewValue(G4UIcommand *command, G4String newValue) {
 
-  if( command == fSensorMatCmd) {
-    fDetectorConstruction->SetMimosaSensorMaterial(0,newValue);
-  }
+    if (command == fSensorMatCmd) {
+        fDetectorConstruction->SetMimosaSensorMaterial(0, newValue);
+    }
 
-  if( command == fStepMaxCmd ) {
-    fDetectorConstruction->SetMaxStep(fStepMaxCmd->GetNewDoubleValue(newValue));
-  }   
+    if (command == fStepMaxCmd) {
+        fDetectorConstruction->SetMaxStep(fStepMaxCmd->GetNewDoubleValue(newValue));
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
