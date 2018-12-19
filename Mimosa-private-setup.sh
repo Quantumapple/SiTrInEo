@@ -15,7 +15,7 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib64
 
 #### Root 5.34 version setup ####
-source /home/jongho/Software/root_version5/root/bin/thisroot.sh 
+source /home/jongho/Software/root_version5/root/bin/thisroot.sh
 
 #### Qt environments setup ####
 export QTDIR="/usr/lib64/qt-3.3"
@@ -28,8 +28,8 @@ export CLHEP_INCLUDE_DIR="/usr/local/include"
 export CLHEP_LIB_DIR="/usr/local/lib"
 
 ### Set environments for complie ###
-export DIGI_DIR="/home/jongho/Analysis/SiTrInEo/MIMOSA_DIGITIZER/trunk"
-export GEANT4_BUILD_DIR="/home/jongho/Software/geant4/build"  
+export DIGI_DIR="/home/jongho/Analysis/SiTrInEo/MIMOSA_DIGITIZER"
+export GEANT4_BUILD_DIR="/home/jongho/Software/geant4/build"
 source /home/jongho/Analysis/SiTrInEo/TestBeam_Geant4Simu_MagField/trunk/geant4make.sh
 echo "Path to build directory $GEANT4_BUILD_DIR "
 
