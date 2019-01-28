@@ -1,76 +1,66 @@
-How to install MimosaSimu 
-=================================
+MimosaSimu framework
+====================
+MimosaSimu is a simulation framework for the SiTrInEo project which is built based on the Geant4. To run this, we assume that you already install Geant4 properly in your private machine. 
+Unfortunately for now, using cmake tool to install MimosaSimu is only work on private machine.
+But we will develop this to work on lxplus or other servers.
 
-There are two options to use MimosaSimu. <br>
+## How to install MimosaSimu 
 
-Install
--------
+Pre-requisite
+- Xerces-C, qt, qt-devel, qt3, libXi, libGL : for Geant4 graphic tools
+- cmake > 3.9.0 (Recommended), ROOT > 6.12.xx
+- Geant4 > 4.10.2 (Recommended)
 
-### Lxplus
-Run in Lxplus machine. To set up environment, type this: 
-<blockquote>
-<p> source Mimosa-lxplus-setup.sh</p>
-</blockquote>
+### Install ROOT using binary version
 
-### Private machine
-To run in your own machine. You have to install pre-requisite libraries and programs. 
-<li> Xerces-C(libxerces-c), qt, qt-devel, qt3, libXi, libGL </li>
-<li> CLHEP > 2.1.x.x, cmake > 3.9.0(Necessary!), ROOT 5.34(Not available with ROOT 6) </li>
-<li> Install Geant4 (4.9.x or 4.10.x) </li> 
-<li> Use 'ccmake' command and set install options as picture </li>
+Example with ROOT 6.16.00 (2019.01.28)
+[ROOT download link](https://root.cern.ch/content/release-61600)
 
-![Option](./image/screenshot.png)
+After go the website via link, find a tab "Binary distribution".
+Check your platform and compare with the uploaded files.
+Here I recommend you use Cern Centos7 (CC7). 
+If you're platform is not listed, you should install using source distribution.
+I assumed that you are using CC7.
 
-<li> Open Mimosa-private-setup.sh and change path to fit your own machine</li>    
-<li> Then, type command:</li>
-<blockquote>
-<p> source Mimosa-private-setup.sh</p>
-</blockquote>
+'''
+wget https://root.cern/download/root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
+tar -zxvf [downloaded_filename].tar
+cd root/bin
+source thisroot.sh # -csh for csh
+'''
 
-<!--
-### KNU Tier3 server
-Pre-requisite library: Xerces-C <br>
-<blockquote>
-<p> wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.1.1.tar.gz </p>
-<p> tar -zxvf xerces-c-3.1.1.tar.gz </p>
-<p> cd xerces-c-3.1.1 </p>
-<p> ./configure -prefix=path/to/build/directory </p>
-<p> make -j3 </p>
-<p> make install </p>
-</blockquote>
-<br>
+After setting ROOT environments, move on to install SiTrInEo.
 
-Open ~/.bashrc and set environments <br>
-export SCRAM\_ARCH=slc6\_amd64\_gcc480 <br>
+### Install MimosaSimu
 
-Install CMSSW\_6\_2\_0 version <br>
-<blockquote>
-<p> source /cvmfs/cms.cern.ch/cmsset\_default.sh </p> 
-<p> scramv1 project CMSSW CMSSW\_6\_2\_0 </p>
-<p> cd CMSSW\_6\_2\_0/src </p>
-<p> cmsenv </p>
-</blockquote>
-<br>
+Clone "Develop" branch in git repository
+'''
+git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+mkdir build
+cd build
+ccmake ../SiTrInEo
+'''
+After ccmake command, you can see the new screen.
+Just press "c" to cofigure and press agian.
+If you can see "g" to generate at below, press g.
+Then
+'''
+make -j 2(4) # depend on your machine
+'''
 
-Set Geant4 environment 
-<blockquote>
-<p> XERCES_INCLUDE_DIR = path/to/build/xerces-c-3.1.1 </p>
-<p> XERCES_LIBRARY = path/to/build/xerces-c-3.1.1/lib/libxerces-c-3.1.so </p>
-</blockquote>
+## How to run MimosaSimu framework
+I recommend you to setup your new command.
+For example
+'''
+export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
+'''
+Then
+'''
+cd ../../SiTrInEo/TestBeam_Geant4Simu_MagField
+MimosaSimu config/runXXX.cfg.Combine
+'''
 
-![Option](./image/KNU-Tier3.png)
--->
 
-### Common
-<li> Below commands are the same to both Lxplus and private machine </li>
-<blockquote>
-<p> cd MIMOSA\_DIGITIZER/trunk</p>
-<p> source Complie.sh</p>
-<p> cd ../../TestBeam\_Geant4Simu/trunk</p>
-<p> source Settings.sh</p>
-<p> source Complie.sh</p>
-</blockquote>
 
-<li> Follow README in TestBeam\_Geant4Simu/trunk</li>
 
 
