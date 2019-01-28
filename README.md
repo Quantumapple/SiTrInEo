@@ -1,3 +1,6 @@
+## **Please read this first**
+Since the SiTrInEo is now developed using cmake, please change to "Develop" branch and follow README in that bracnh.
+
 How to install MimosaSimu 
 =================================
 
