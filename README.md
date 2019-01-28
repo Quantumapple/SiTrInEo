@@ -54,6 +54,7 @@ For example
 export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
 ```
 **You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**
+
 Then
 ```
 cd ../../SiTrInEo/TestBeam_Geant4Simu_MagField
