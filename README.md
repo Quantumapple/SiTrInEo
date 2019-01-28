@@ -13,8 +13,7 @@ Pre-requisite
 
 ### Install ROOT using binary version
 
-Example with ROOT 6.16.00 (2019.01.28)
-[ROOT download link](https://root.cern.ch/content/release-61600)
+Example with ROOT 6.16.00 (2019.01.28), [ROOT download link](https://root.cern.ch/content/release-61600)
 
 After go the website via link, find a tab "Binary distribution".
 Check your platform and compare with the uploaded files.
