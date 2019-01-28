@@ -23,7 +23,7 @@ I assumed that you are using CC7.
 
 ```
 wget https://root.cern/download/root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
-tar -zxvf [downloaded_filename].tar
+tar -zxvf root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
 cd root/bin
 source thisroot.sh # -csh for csh
 ```
