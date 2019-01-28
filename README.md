@@ -22,43 +22,43 @@ Here I recommend you use Cern Centos7 (CC7).
 If you're platform is not listed, you should install using source distribution.
 I assumed that you are using CC7.
 
-'''
+```
 wget https://root.cern/download/root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
 tar -zxvf [downloaded_filename].tar
 cd root/bin
 source thisroot.sh # -csh for csh
-'''
+```
 
 After setting ROOT environments, move on to install SiTrInEo.
 
 ### Install MimosaSimu
 
 Clone "Develop" branch in git repository
-'''
+```
 git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
 mkdir build
 cd build
 ccmake ../SiTrInEo
-'''
+```
 After ccmake command, you can see the new screen.
 Just press "c" to cofigure and press agian.
 If you can see "g" to generate at below, press g.
 Then
-'''
+```
 make -j 2(4) # depend on your machine
-'''
+```
 
 ## How to run MimosaSimu framework
 I recommend you to setup your new command.
 For example
-'''
+```
 export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
-'''
+```
 Then
-'''
+```
 cd ../../SiTrInEo/TestBeam_Geant4Simu_MagField
 MimosaSimu config/runXXX.cfg.Combine
-'''
+```
 
 
 
