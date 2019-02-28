@@ -36,7 +36,30 @@ Download the latest Geant4 version, [Geant4 download link](https://geant4.web.ce
 ```
 export QT_QMAKE_EXECUTABLE=/usr/bin/qmake-qt4
 ```
+
+Let's install Geant4 in user area
+```
+cd ~
+mkdir Software && cd Software
+mkdir Geant4 && cd Geant4
+mkdir build src install
+mv download.Geant4.source.tar.gz src // download.Geant4.source is just arbitrary name
+cd src
+tar -zxvf download.Geant4.source.tar.gz
+cd ../build
+ccmake ../src/geant4.10.05
+```
+
+Follow the configuration as below example:
 ![geant4configure](https://user-images.githubusercontent.com/35092541/53545505-07368b80-3b6d-11e9-9397-58262f1c127c.png)
+
+CMAKE\_INSTALL\_PREFIX: path to where you want to install Geant4, recommended: /path/to/Software/Geant4/install
+Press 'c' until you can press 'g' to generate
+
+```
+make -j 4 && make install
+source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh
+```
 
 ### Install ROOT using binary version
 
@@ -81,6 +104,8 @@ For example
 export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
 ```
 **Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**
+**source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh**
+**source /path/to/root/bin/thisroot.sh**
 
 Then
 ```
