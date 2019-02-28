@@ -36,7 +36,7 @@ Download the latest Geant4 version, [Geant4 download link](https://geant4.web.ce
 ```
 export QT_QMAKE_EXECUTABLE=/usr/bin/qmake-qt4
 ```
-![Exmample](./InstallExample/Geant4Configure.png)
+![geant4configure](https://user-images.githubusercontent.com/35092541/53545505-07368b80-3b6d-11e9-9397-58262f1c127c.png)
 
 ### Install ROOT using binary version
 
