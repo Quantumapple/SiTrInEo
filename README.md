@@ -104,13 +104,12 @@ For example
 export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
 ```
 **Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**  
-**source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh**  
-**source /path/to/root/bin/thisroot.sh**  
 
 Then
 ```
 cd ../../SiTrInEo/TestBeam_Geant4Simu_MagField
-source /path/to/Geant4/build/directory/geant4make.sh
+source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh  
+source /path/to/root/bin/thisroot.sh  
 MimosaSimu config/runXXX.cfg.Combine
 ```
 
