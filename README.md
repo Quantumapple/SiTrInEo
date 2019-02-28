@@ -53,7 +53,7 @@ ccmake ../src/geant4.10.05
 Follow the configuration as below example:
 ![geant4configure](https://user-images.githubusercontent.com/35092541/53545505-07368b80-3b6d-11e9-9397-58262f1c127c.png)
 
-CMAKE\_INSTALL\_PREFIX: path to where you want to install Geant4, recommended: /path/to/Software/Geant4/install
+CMAKE\_INSTALL\_PREFIX: path to where you want to install Geant4, recommended: /path/to/Software/Geant4/install  
 Press 'c' until you can press 'g' to generate
 
 ```
@@ -103,9 +103,9 @@ For example
 ```
 export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
 ```
-**Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**
-**source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh**
-**source /path/to/root/bin/thisroot.sh**
+**Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**  
+**source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh**  
+**source /path/to/root/bin/thisroot.sh**  
 
 Then
 ```
