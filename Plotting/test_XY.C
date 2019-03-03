@@ -1,12 +1,12 @@
-#define test_XY_cxx
-#include "test_XY.h"
+#define test_cxx
+#include "test.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 
 using namespace std;
 
-void test_XY::Loop()
+void test::Loop()
 {
    if (fChain == 0) return;
 
@@ -15,13 +15,20 @@ void test_XY::Loop()
 
    Long64_t nbytes = 0, nb = 0;
 
+   TH2F *longit = new TH2F("longit","Longitudinal plane; z [mm]; y [mm]",1000,-30,30,1000,-20,20);
+   TH2F *transv = new TH2F("transv","Transverse plane ; x [mm]; y [mm]",1000,-30,30,1000,-30,30);
 
-   TH2F *HXY1 = new TH2F("HXY1", "x-y plane", 200, -10.1, 10.1, 400, -20.1, 10.1);
-   TH2F *HXY2 = new TH2F("HXY2", "x-y plane", 200, -10.1, 10.1, 400, -20.1, 10.1);
-   TH2F *HXY3 = new TH2F("HXY3", "x-y plane", 200, -10.1, 10.1, 400, -20.1, 10.1);
-   TH2F *HXY4 = new TH2F("HXY4", "x-y plane", 200, -10.1, 10.1, 400, -20.1, 10.1);
+   TGraph *lo1 = new TGraph();
+   TGraph *lo2 = new TGraph();
+   TGraph *lo3 = new TGraph();
+   TGraph *lo4 = new TGraph();
 
-   TFile *XY_output = new TFile("XY_output.root","RECREATE");
+   TGraph *tr1 = new TGraph();
+   TGraph *tr2 = new TGraph();
+   TGraph *tr3 = new TGraph();
+   TGraph *tr4 = new TGraph();
+
+   TFile *output = new TFile("test.root","RECREATE");
 
    // Set B-field magnitude, Length of B-field
    Float_t Bmag = 0.2; // unit: tesla
@@ -29,8 +36,8 @@ void test_XY::Loop()
    Float_t pT_true = 2.; // 2 MeV
 
    Int_t count = 0;
-   for (Long64_t jentry=0; jentry<nentries;jentry++) {
-   //for (Long64_t jentry=0; jentry<50;jentry++) {
+   //for (Long64_t jentry=0; jentry<nentries;jentry++) {
+   for (Long64_t jentry=4; jentry<5;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -80,11 +87,6 @@ void test_XY::Loop()
                           //count++;
                           flag = true;
 
-
-			  float posU[4] = {HitposAVRmmU[i], HitposAVRmmU[i+1], HitposAVRmmU[i+2], HitposAVRmmU[i+3]};
-			  float posX[4] = {HitposINmmX[i], HitposINmmX[i+1], HitposINmmX[i+2], HitposINmmX[i+3]};
-			  float posY[4] = {HitposINmmY[i], HitposINmmY[i+1], HitposINmmY[i+2], HitposINmmY[i+3]};
-
                           Float_t alpha1 = atan((HitposAVRmmV[i+1]-HitposAVRmmV[i])/(HitposINmmZ[i+1]-HitposINmmZ[i]));
                           Float_t alpha2 = atan((HitposAVRmmV[i+3]-HitposAVRmmV[i+2])/(HitposINmmZ[i+3]-HitposINmmZ[i+2]));
 
@@ -96,23 +98,43 @@ void test_XY::Loop()
                           Float_t RecoMom3 = sqrt(pow(HitmomMeVX[i+2],2)+pow(HitmomMeVY[i+2],2)+pow(HitmomMeVZ[i+2],2));
                           Float_t RecoMom4 = sqrt(pow(HitmomMeVX[i+3],2)+pow(HitmomMeVY[i+3],2)+pow(HitmomMeVZ[i+3],2));
 
+                          float posU[4] = {HitposAVRmmU[i], HitposAVRmmU[i+1], HitposAVRmmU[i+2], HitposAVRmmU[i+3]};
+                          float posX[4] = {HitposINmmX[i], HitposINmmX[i+1], HitposINmmX[i+2], HitposINmmX[i+3]};
+                          float posY[4] = {HitposINmmY[i], HitposINmmY[i+1], HitposINmmY[i+2], HitposINmmY[i+3]};
 
-			  HXY1->Fill(posX[0], posY[0]);
-			  HXY2->Fill(posX[1], posY[1]);
-			  HXY3->Fill(posX[2], posY[2]);
-			  HXY4->Fill(posX[3], posY[3]);
+                          lo1->SetPoint(0, HitposINmmZ[i], HitposINmmY[i]); 
+                          lo2->SetPoint(0, HitposINmmZ[i+1], HitposINmmY[i+1]); 
+                          lo3->SetPoint(0, HitposINmmZ[i+2], HitposINmmY[i+2]); 
+                          lo4->SetPoint(0, HitposINmmZ[i+3], HitposINmmY[i+3]); 
+                          
+                          tr1->SetPoint(0, HitposINmmX[i], HitposINmmY[i]); 
+                          tr2->SetPoint(0, HitposINmmX[i+1], HitposINmmY[i+1]); 
+                          tr3->SetPoint(0, HitposINmmX[i+2], HitposINmmY[i+2]); 
+                          tr4->SetPoint(0, HitposINmmX[i+3], HitposINmmY[i+3]); 
+
+                          cout << "1st-2nd deltaPhi: " << deltaPhi(hit1.Phi(), hit2.Phi()) << ", deltaEta: " << hit1.Eta() - hit2.Eta() << ", deltaR: " << deltaR(hit1.Phi(), hit2.Phi(), hit1.Eta(), hit2.Eta() ) << endl;                   
+                          cout << "3rd-4th deltaPhi: " << deltaPhi(hit3.Phi(), hit4.Phi()) << ", deltaEta: " << hit3.Eta() - hit4.Eta() << ", deltaR: " << deltaR(hit3.Phi(), hit4.Phi(), hit3.Eta(), hit4.Eta() ) << endl;                   
+
+                          //cout << "     Hit position x on 1st plane: " << HitposINmmX[i] << ", on 2nd plane: " << HitposINmmX[i+1] << ", on 3rd plane: " << HitposINmmX[i+2] << ", on 4th plane: " << HitposINmmX[i+3] << endl;
+                          //cout << "     Hit position y on 1st plane: " << HitposINmmY[i] << ", on 2nd plane: " << HitposINmmY[i+1] << ", on 3rd plane: " << HitposINmmY[i+2] << ", on 4th plane: " << HitposINmmY[i+3] << endl;
+                          //cout << "     Hit position U on 1st plane: " << HitposAVRmmU[i] << ", on 2nd plane: " << HitposAVRmmU[i+1] << ", on 3rd plane: " << HitposAVRmmU[i+2] << ", on 4th plane: " << HitposAVRmmU[i+3] << endl;
+                          //HXY1->Fill(posX[0], posY[0]);
+                          //HXY2->Fill(posX[1], posY[1]);
+                          //HXY3->Fill(posX[2], posY[2]);
+                          //HXY4->Fill(posX[3], posY[3]);
 
 
-		      }
-		  }
-	      }
-	  }
+                      }
+                  }
+              }
+          }
 
       }
       cout << endl;
 
       if( flag ) count++;
 
+      /*
       TCanvas *canXY = new TCanvas("canXY","",1000,600);
       HXY1->Draw("");
       HXY1->SetMarkerStyle(20);
@@ -134,15 +156,62 @@ void test_XY::Loop()
 
       canXY->Write();
       canXY->ResetDrawn();
+      */
 
    } // event loop
 
+   
+   lo1->SetMarkerSize(1.5);
+   lo1->SetMarkerColor(kBlue);
+   lo1->SetMarkerStyle(20);
+   lo2->SetMarkerSize(1.5);
+   lo2->SetMarkerColor(kRed);
+   lo2->SetMarkerStyle(20);
+   lo3->SetMarkerSize(1.5);
+   lo3->SetMarkerColor(kSpring);
+   lo3->SetMarkerStyle(20);
+   lo4->SetMarkerSize(1.5);
+   lo4->SetMarkerColor(kViolet);
+   lo4->SetMarkerStyle(20);
+   
+   tr1->SetMarkerSize(1.5);
+   tr1->SetMarkerColor(kBlue);
+   tr1->SetMarkerStyle(20);
+   tr2->SetMarkerSize(1.5);
+   tr2->SetMarkerColor(kRed);
+   tr2->SetMarkerStyle(20);
+   tr3->SetMarkerSize(1.5);
+   tr3->SetMarkerColor(kSpring);
+   tr3->SetMarkerStyle(20);
+   tr4->SetMarkerSize(1.5);
+   tr4->SetMarkerColor(kViolet);
+   tr4->SetMarkerStyle(20);
 
-   cout << endl;
-   cout << "Total event : "<< nentries << endl;
-   cout << "   Number of events at least one track measured with 4 hits on each pixel layer: " << count << endl;
-   cout << "     Signal efficiency: " << (float)count/3000. << endl;
+   TCanvas *c1 = new TCanvas("c1", "", 800,800);
+   longit->Draw();
+   lo1->Draw("p same");
+   lo2->Draw("p same");
+   lo3->Draw("p same");
+   lo4->Draw("p same");
 
-   XY_output->Close();
+   TCanvas *c2 = new TCanvas("c2", "", 800, 800);
+   transv->Draw();
+   tr1->Draw("p same");
+   tr2->Draw("p same");
+   tr3->Draw("p same");
+   tr4->Draw("p same");
+
+   c1->Print("LongitGood.png");
+   c2->Print("TransvGood.png");
+
+   delete c1;
+   delete c2;
+   
+   //cout << endl;
+   //cout << "Total event : "<< nentries << endl;
+   //cout << "   Number of events at least one track measured with 4 hits on each pixel layer: " << count << endl;
+   //cout << "     Signal efficiency: " << (float)count/3000. << endl;
+
+   output->Close();
 
 }

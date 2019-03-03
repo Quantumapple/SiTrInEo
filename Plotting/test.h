@@ -209,7 +209,10 @@ public :
        return sqrt(pow(eta2-eta1,2)+pow(deltaPhi(phi1, phi2),2));
    }
 
-
+   inline float SqRt(float var1, float var2)
+   {
+       return sqrt(pow(var1,2)+pow(var2,2));
+   }
 
 };
 
