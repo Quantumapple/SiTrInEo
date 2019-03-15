@@ -112,8 +112,19 @@ void test::Loop()
                           tr3->SetPoint(0, HitposINmmX[i+2], HitposINmmY[i+2]); 
                           tr4->SetPoint(0, HitposINmmX[i+3], HitposINmmY[i+3]); 
 
-                          cout << "1st-2nd deltaPhi: " << deltaPhi(hit1.Phi(), hit2.Phi()) << ", deltaEta: " << hit1.Eta() - hit2.Eta() << ", deltaR: " << deltaR(hit1.Phi(), hit2.Phi(), hit1.Eta(), hit2.Eta() ) << endl;                   
-                          cout << "3rd-4th deltaPhi: " << deltaPhi(hit3.Phi(), hit4.Phi()) << ", deltaEta: " << hit3.Eta() - hit4.Eta() << ", deltaR: " << deltaR(hit3.Phi(), hit4.Phi(), hit3.Eta(), hit4.Eta() ) << endl;                   
+                          TVector3 v1;
+                          v1.SetXYZ(30. - HitposINmmX[i], HitposINmmY[i], HitposINmmZ[i]);
+                          Float_t v1Phi = v1.Phi();
+                          Float_t v1Eta = v1.Eta();
+
+                          TVector3 v2;
+                          v2.SetXYZ(HitposINmmX[i] - HitposINmmX[i+1], HitposINmmY[i] - HitposINmmY[i+1], HitposINmmZ[i] - HitposINmmZ[i+1]);
+                          Float_t v2Phi = v2.Phi();
+                          Float_t v2Eta = v2.Eta();
+
+                          cout << "1st-2nd deltaPhi: " << deltaPhi(v1.Phi(), v2.Phi()) << ", deltaEta: " << v1.Eta() - v2.Eta() << ", deltaR: " << deltaR(v1.Phi(), v2.Phi(), v1.Eta(), v2.Eta() ) << endl;                   
+                          //cout << "1st-2nd deltaPhi: " << deltaPhi(hit1.Phi(), hit2.Phi()) << ", deltaEta: " << hit1.Eta() - hit2.Eta() << ", deltaR: " << deltaR(hit1.Phi(), hit2.Phi(), hit1.Eta(), hit2.Eta() ) << endl;                   
+                          //cout << "3rd-4th deltaPhi: " << deltaPhi(hit3.Phi(), hit4.Phi()) << ", deltaEta: " << hit3.Eta() - hit4.Eta() << ", deltaR: " << deltaR(hit3.Phi(), hit4.Phi(), hit3.Eta(), hit4.Eta() ) << endl;                   
 
                           //cout << "     Hit position x on 1st plane: " << HitposINmmX[i] << ", on 2nd plane: " << HitposINmmX[i+1] << ", on 3rd plane: " << HitposINmmX[i+2] << ", on 4th plane: " << HitposINmmX[i+3] << endl;
                           //cout << "     Hit position y on 1st plane: " << HitposINmmY[i] << ", on 2nd plane: " << HitposINmmY[i+1] << ", on 3rd plane: " << HitposINmmY[i+2] << ", on 4th plane: " << HitposINmmY[i+3] << endl;
