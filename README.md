@@ -18,7 +18,7 @@ yum -y groupinstall "Development Tools"
 yum -y install expat.x86_64 expat-devel.x86_64
 yum -y install qt qt-devel qt-config
 yum -y install libXmu.x86_64 libXmu-devel.x86_64
-yum -y install xerces-c
+yum -y install xerces-c-devel.x86_64
 ```
 
 ### Install CMake and set ccmake configuration
@@ -26,7 +26,7 @@ yum -y install xerces-c
 wget https://cmake.org/files/v3.9/cmake-3.9.5-Linux-x86_64.tar.gz
 tar -zxvf cmake-3.9.5-Linux-x86_64.tar.gz
 cd cmake-3.9.5-Linux-x86_64/bin
-export ccmake=${PWD}/ccmake
+alias ccmake=/path/to/cmake-3.9.5-Linux-x86_64/bin/ccmake
 ```
 
 ## How to install Geant4 
@@ -75,7 +75,7 @@ I assumed that you are using CC7.
 wget https://root.cern/download/root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
 tar -zxvf root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
 cd root/bin
-source thisroot.sh # -csh for csh
+source thisroot.sh # tcsh for csh
 ```
 
 After setting ROOT environments, move on to install SiTrInEo.
@@ -101,7 +101,7 @@ make -j 2(4) # depend on your machine
 I recommend you to setup your new command.
 For example
 ```
-export MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
+alias MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
 ```
 **Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**  
 
