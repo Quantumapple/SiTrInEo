@@ -21,6 +21,17 @@ yum -y install libXmu.x86_64 libXmu-devel.x86_64
 yum -y install xerces-c
 ```
 
+Commnads for Ubuntu machine:
+
+```
+apt-get update
+apt-get upgrade
+apt install build-essential
+apt install libqt4-dev
+apt install libxmu-dev
+apt install libxerces-c-dev
+```
+
 ### Install CMake and set ccmake configuration
 ```
 wget https://cmake.org/files/v3.9/cmake-3.9.5-Linux-x86_64.tar.gz
@@ -61,7 +72,7 @@ make -j 4 && make install
 source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh
 ```
 
-### Install ROOT using binary version
+### Install ROOT
 
 Example with ROOT 6.16.00 (2019.01.28), [ROOT download link](https://root.cern.ch/content/release-61600)
 
@@ -77,6 +88,21 @@ tar -zxvf root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
 cd root/bin
 source thisroot.sh # tcsh for csh
 ```
+
+Install root from source distribution:  
+First please find this link to install pre-requisite libraries for ROOT framework.  
+[ROOT pre-requisties](https://root.cern.ch/build-prerequisites)
+
+```
+wget https://root.cern/download/root_v6.16.00.source.tar.gz
+tar -zxvf root_v6.16.00.source.tar.gz
+mkdir build src
+mv root-6.16.00 src
+cd build
+ccmake ../src/root-6.16.00
+```
+
+Proceed the same process when you install Geant4.
 
 After setting ROOT environments, move on to install SiTrInEo.
 
