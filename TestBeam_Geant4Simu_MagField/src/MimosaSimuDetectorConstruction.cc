@@ -601,7 +601,7 @@ G4VPhysicalVolume *MimosaSimuDetectorConstruction::DefineVolumes() {
 
     worldLV->SetVisAttributes(boxVisAtt);
     std::set<G4double> lZPos_list;
-    G4double temp_maxStep;
+    //G4double temp_maxStep;
 
     for (G4int sensorID = 0; sensorID < fSetup->TrackerParameter.Planes;
          sensorID++) { // Looping over the planes to build the
@@ -707,7 +707,7 @@ G4VPhysicalVolume *MimosaSimuDetectorConstruction::DefineVolumes() {
             if (maxStep > SubstrateThickness) maxStep = SubstrateThickness;
         }
         maxStep *= thickness_fraction;
-        temp_maxStep = maxStep;
+        //temp_maxStep = maxStep;
         // fStepLimit = new G4UserLimits(maxStep);
 
         G4double MinimumThickness = 1.0e-3 * um;

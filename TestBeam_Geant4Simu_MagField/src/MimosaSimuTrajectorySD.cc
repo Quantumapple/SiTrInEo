@@ -76,7 +76,7 @@ G4bool MimosaSimuTrajectorySD::ProcessHits(G4Step *aStep, G4TouchableHistory *) 
 
     G4Track *aTrack                           = aStep->GetTrack();
     G4int trackID                             = aTrack->GetTrackID();
-    G4int trackParentID                       = aTrack->GetParentID();
+    //G4int trackParentID                       = aTrack->GetParentID();
     G4ThreeVector trackMomentum               = aTrack->GetMomentum();
     G4ThreeVector trackVertexPosition         = aTrack->GetVertexPosition();
     G4double trackVertexTime                  = aTrack->GetGlobalTime();
