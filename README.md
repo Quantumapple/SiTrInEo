@@ -16,9 +16,9 @@ The commands are based on Cern Centos7 (CC7).
 yum -y update
 yum -y groupinstall "Development Tools"
 yum -y install expat.x86_64 expat-devel.x86_64
-yum -y install qt qt-devel qt-config
+yum -y install qt qt-devel
 yum -y install libXmu.x86_64 libXmu-devel.x86_64
-yum -y install xerces-c
+yum -y install xerces-c-devel.x86_64
 ```
 
 Commnads for Ubuntu machine:
@@ -30,14 +30,23 @@ apt install build-essential
 apt install libqt4-dev
 apt install libxmu-dev
 apt install libxerces-c-dev
+apt install libcanberra-gtk-module libcanberra-gtk3-module
 ```
 
 ### Install CMake and set ccmake configuration
 ```
 wget https://cmake.org/files/v3.9/cmake-3.9.5-Linux-x86_64.tar.gz
 tar -zxvf cmake-3.9.5-Linux-x86_64.tar.gz
-cd cmake-3.9.5-Linux-x86_64/bin
-alias ccmake=/path/to/cmake-3.9.5-Linux-x86_64/bin/ccmake
+```
+When do clone the SiTrInEo git repository, you can find SetupScripts directory.
+```
+git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+cd SetupScripts
+vi cmake_setup.sh # please use your prefer editor.
+```
+Change the path to your Cmake area.
+```
+source cmake_setup.sh
 ```
 
 ## How to install Geant4 
