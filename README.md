@@ -119,9 +119,9 @@ After setting ROOT environments, move on to install SiTrInEo.
 
 ### Install MimosaSimu
 
-Clone "Develop" branch in git repository
+Clone git repository
 ```
-git clone git@github.com:\<github username\>/SiTrInEo.git
+git clone git@github.com:<github username>/SiTrInEo.git
 mkdir build
 cd build
 ccmake ../SiTrInEo
