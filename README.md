@@ -5,9 +5,9 @@ Unfortunately for now, using cmake tool to install MimosaSimu is only work on pr
 But we will develop this to work on lxplus or other servers.
 
 Pre-requisite
-- Xerces-C, qt, qt-devel, qt3, libXi, libGL : for Geant4 graphic tools
-- cmake > 3.9.0 (Recommended), ROOT: the latest version
-- Geant4: the latest version
+- Xerces-C, qt, qt-devel, qt4, libXi, libGL : for Geant4 graphic tools
+- cmake > 3.9.0 (Necessary), ROOT: the latest version
+- Geant4: 10.05 (If the version is > 10.05, you must use qt5 instead of qt4)
 
 ### Install pre-requisite libraries
 The commands are based on Cern Centos7 (CC7).
@@ -21,7 +21,7 @@ yum -y install libXmu.x86_64 libXmu-devel.x86_64
 yum -y install xerces-c-devel.x86_64
 ```
 
-Commnads for Ubuntu machine:
+Commnads for Ubuntu (18.04, 20.04 LTS) machine:
 
 ```
 apt-get update
@@ -31,16 +31,18 @@ apt install libqt4-dev
 apt install libxmu-dev
 apt install libxerces-c-dev
 apt install libcanberra-gtk-module libcanberra-gtk3-module
+apt install cmake
 ```
 
-### Install CMake and set ccmake configuration
+### Install CMake and set ccmake configuration (CC7)
+Download cmake 3.9.5 version.
 ```
 wget https://cmake.org/files/v3.9/cmake-3.9.5-Linux-x86_64.tar.gz
 tar -zxvf cmake-3.9.5-Linux-x86_64.tar.gz
 ```
-When do clone the SiTrInEo git repository, you can find SetupScripts directory.
+Clone git repository.
 ```
-git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+git clone git@github.com:<github username>/SiTrInEo.git
 cd SetupScripts
 vi cmake_setup.sh # please use your prefer editor.
 ```
@@ -83,7 +85,7 @@ source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4mak
 
 ### Install ROOT
 
-Example with ROOT 6.16.00 (2019.01.28), [ROOT download link](https://root.cern.ch/content/release-61600)
+Example with ROOT 6.16.00 (2019.01.28), [ROOT download link](https://root.cern/install/all_releases/)
 
 After go the website via link, find a tab "Binary distribution".
 Check your platform and compare with the uploaded files.
@@ -100,7 +102,7 @@ source thisroot.sh # tcsh for csh
 
 Install root from source distribution:  
 First please find this link to install pre-requisite libraries for ROOT framework.  
-[ROOT pre-requisties](https://root.cern.ch/build-prerequisites)
+[ROOT pre-requisties](https://root.cern/install/dependencies/)
 
 ```
 wget https://root.cern/download/root_v6.16.00.source.tar.gz
@@ -147,8 +149,3 @@ source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4mak
 source /path/to/root/bin/thisroot.sh  
 MimosaSimu config/runXXX.cfg.Combine
 ```
-
-
-
-
-
