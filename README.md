@@ -121,7 +121,7 @@ After setting ROOT environments, move on to install SiTrInEo.
 
 Clone "Develop" branch in git repository
 ```
-git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+git clone git@github.com:\<github username\>/SiTrInEo.git
 mkdir build
 cd build
 ccmake ../SiTrInEo
