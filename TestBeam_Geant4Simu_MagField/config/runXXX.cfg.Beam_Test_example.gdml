@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+  <define/>
+
+  <materials>
+    <isotope N="28" Z="14" name="Si280x1f11350">
+      <atom unit="g/mole" value="27.9769"/>
+    </isotope>
+    <isotope N="29" Z="14" name="Si290x1f11390">
+      <atom unit="g/mole" value="28.9765"/>
+    </isotope>
+    <isotope N="30" Z="14" name="Si300x1f11400">
+      <atom unit="g/mole" value="29.9738"/>
+    </isotope>
+    <element name="Si0x1f14650">
+      <fraction n="0.922296077703922" ref="Si280x1f11350"/>
+      <fraction n="0.0468319531680468" ref="Si290x1f11390"/>
+      <fraction n="0.0308719691280309" ref="Si300x1f11400"/>
+    </element>
+    <material name="G4_Si0x1f11230" state="solid">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="173"/>
+      <D unit="g/cm3" value="2.33"/>
+      <fraction n="1" ref="Si0x1f14650"/>
+    </material>
+    <isotope N="12" Z="6" name="C120x1f089a0">
+      <atom unit="g/mole" value="12"/>
+    </isotope>
+    <isotope N="13" Z="6" name="C130x1f08a30">
+      <atom unit="g/mole" value="13.0034"/>
+    </isotope>
+    <element name="C0x1f08770">
+      <fraction n="0.9893" ref="C120x1f089a0"/>
+      <fraction n="0.0107" ref="C130x1f08a30"/>
+    </element>
+    <isotope N="14" Z="7" name="N140x1f08ce0">
+      <atom unit="g/mole" value="14.0031"/>
+    </isotope>
+    <isotope N="15" Z="7" name="N150x1f08d50">
+      <atom unit="g/mole" value="15.0001"/>
+    </isotope>
+    <element name="N0x1f08ab0">
+      <fraction n="0.99632" ref="N140x1f08ce0"/>
+      <fraction n="0.00368" ref="N150x1f08d50"/>
+    </element>
+    <isotope N="16" Z="8" name="O160x1f08ca0">
+      <atom unit="g/mole" value="15.9949"/>
+    </isotope>
+    <isotope N="17" Z="8" name="O170x1f09030">
+      <atom unit="g/mole" value="16.9991"/>
+    </isotope>
+    <isotope N="18" Z="8" name="O180x1f090c0">
+      <atom unit="g/mole" value="17.9992"/>
+    </isotope>
+    <element name="O0x1f08db0">
+      <fraction n="0.99757" ref="O160x1f08ca0"/>
+      <fraction n="0.00038" ref="O170x1f09030"/>
+      <fraction n="0.00205" ref="O180x1f090c0"/>
+    </element>
+    <isotope N="36" Z="18" name="Ar360x1f08f60">
+      <atom unit="g/mole" value="35.9675"/>
+    </isotope>
+    <isotope N="38" Z="18" name="Ar380x1f09390">
+      <atom unit="g/mole" value="37.9627"/>
+    </isotope>
+    <isotope N="40" Z="18" name="Ar400x1f09490">
+      <atom unit="g/mole" value="39.9624"/>
+    </isotope>
+    <element name="Ar0x1f09130">
+      <fraction n="0.003365" ref="Ar360x1f08f60"/>
+      <fraction n="0.000632" ref="Ar380x1f09390"/>
+      <fraction n="0.996003" ref="Ar400x1f09490"/>
+    </element>
+    <material name="G4_AIR0x1f08680" state="gas">
+      <T unit="K" value="293.15"/>
+      <MEE unit="eV" value="85.7"/>
+      <D unit="g/cm3" value="0.00120479"/>
+      <fraction n="0.000124000124000124" ref="C0x1f08770"/>
+      <fraction n="0.755267755267755" ref="N0x1f08ab0"/>
+      <fraction n="0.231781231781232" ref="O0x1f08db0"/>
+      <fraction n="0.0128270128270128" ref="Ar0x1f09130"/>
+    </material>
+  </materials>
+
+  <solids>
+    <box lunit="mm" name="MimosaSensor_Solid10x1f29e10" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid10x1f29f80" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid10x1f2a160" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="MimosaSensor_Solid20x1f2a750" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid20x1f2a8c0" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid20x1f2aac0" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="MimosaSensor_Solid30x1f2afe0" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid30x1f2b150" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid30x1f2b300" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="MimosaSensor_Solid40x1f2b860" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid40x1f2b9d0" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid40x1f2bb80" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="MimosaSensor_Solid50x1f2c110" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid50x1f2c280" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid50x1f2c430" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="MimosaSensor_Solid60x1f2c990" x="7.6544" y="7.6544" z="0.0100000001490116"/>
+    <box lunit="mm" name="MimosaSensor_Solid60x1f2cb00" x="7.6544" y="7.6544" z="0.0025000000372529"/>
+    <box lunit="mm" name="MimosaSensor_Solid60x1f2b510" x="7.6544" y="7.6544" z="0.0374999998137355"/>
+    <box lunit="mm" name="world0x1f1eff0" x="15.4394939192628" y="15.4394939192628" z="257.792409001731"/>
+  </solids>
+
+  <structure>
+    <volume name="MimosaSensor_LV10x1f29e70">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid10x1f29e10"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV10x1f2a020">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid10x1f29f80"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV10x1f2a230">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid10x1f2a160"/>
+    </volume>
+    <volume name="MimosaSensor_LV20x1f2a7b0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid20x1f2a750"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV20x1f2a960">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid20x1f2a8c0"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV20x1f2ab60">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid20x1f2aac0"/>
+    </volume>
+    <volume name="MimosaSensor_LV30x1f2b040">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid30x1f2afe0"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV30x1f2b1f0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid30x1f2b150"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV30x1f2b3d0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid30x1f2b300"/>
+    </volume>
+    <volume name="MimosaSensor_LV40x1f2b8c0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid40x1f2b860"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV40x1f2ba70">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid40x1f2b9d0"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV40x1f2bc50">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid40x1f2bb80"/>
+    </volume>
+    <volume name="MimosaSensor_LV50x1f2c170">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid50x1f2c110"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV50x1f2c320">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid50x1f2c280"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV50x1f2c500">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid50x1f2c430"/>
+    </volume>
+    <volume name="MimosaSensor_LV60x1f2c9f0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid60x1f2c990"/>
+    </volume>
+    <volume name="MimosaSensorMetal_LV60x1f2cba0">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid60x1f2cb00"/>
+    </volume>
+    <volume name="MimosaSensorSubstrate_LV60x1f2ce00">
+      <materialref ref="G4_Si0x1f11230"/>
+      <solidref ref="MimosaSensor_Solid60x1f2b510"/>
+    </volume>
+    <volume name="World0x1f1f050">
+      <materialref ref="G4_AIR0x1f08680"/>
+      <solidref ref="world0x1f1eff0"/>
+      <physvol name="MimosaSensor_PV10x1f29f40">
+        <volumeref ref="MimosaSensor_LV10x1f29e70"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV10x1f2a0f0">
+        <volumeref ref="MimosaSensorMetal_LV10x1f2a020"/>
+        <position name="MimosaSensorMetal_PV10x1f2a0f0_pos" unit="mm" x="0" y="0" z="0.00625062509314157"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV10x1f2a330">
+        <volumeref ref="MimosaSensorSubstrate_LV10x1f2a230"/>
+        <position name="MimosaSensorSubstrate_PV10x1f2a330_pos" unit="mm" x="0" y="0" z="-0.0237523749813717"/>
+      </physvol>
+      <physvol name="MimosaSensor_PV20x1f2a880">
+        <volumeref ref="MimosaSensor_LV20x1f2a7b0"/>
+        <position name="MimosaSensor_PV20x1f2a880_pos" unit="mm" x="0.35623" y="0.12852" z="15"/>
+        <rotation name="MimosaSensor_PV20x1f2a880_rot" unit="deg" x="3.23034" y="0.77273" z="0.48989"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV20x1f2aa30">
+        <volumeref ref="MimosaSensorMetal_LV20x1f2a960"/>
+        <position name="MimosaSensorMetal_PV20x1f2aa30_pos" unit="mm" x="0.356145702358057" y="0.128872191968808" z="15.0062401257022"/>
+        <rotation name="MimosaSensorMetal_PV20x1f2aa30_rot" unit="deg" x="3.23034" y="0.77273" z="0.48989"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV20x1f2ac80">
+        <volumeref ref="MimosaSensorSubstrate_LV20x1f2ab60"/>
+        <position name="MimosaSensorSubstrate_PV20x1f2ac80_pos" unit="mm" x="0.356550331034359" y="0.127181670539521" z="14.9762875227035"/>
+        <rotation name="MimosaSensorSubstrate_PV20x1f2ac80_rot" unit="deg" x="3.23034" y="0.77273" z="0.48989"/>
+      </physvol>
+      <physvol name="MimosaSensor_PV30x1f2b110">
+        <volumeref ref="MimosaSensor_LV30x1f2b040"/>
+        <position name="MimosaSensor_PV30x1f2b110_pos" unit="mm" x="0.83504" y="0.17465" z="45"/>
+        <rotation name="MimosaSensor_PV30x1f2b110_rot" unit="deg" x="5.78821" y="1.4642" z="0.89632"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV30x1f2b2c0">
+        <volumeref ref="MimosaSensorMetal_LV30x1f2b1f0"/>
+        <position name="MimosaSensorMetal_PV30x1f2b2c0_pos" unit="mm" x="0.834880281968168" y="0.175280179550332" z="45.0062167256606"/>
+        <rotation name="MimosaSensorMetal_PV30x1f2b2c0_rot" unit="deg" x="5.78821" y="1.4642" z="0.89632"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV30x1f2b4a0">
+        <volumeref ref="MimosaSensorSubstrate_LV30x1f2b3d0"/>
+        <position name="MimosaSensorSubstrate_PV30x1f2b4a0_pos" unit="mm" x="0.835646928511441" y="0.172255317746302" z="44.9763764428601"/>
+        <rotation name="MimosaSensorSubstrate_PV30x1f2b4a0_rot" unit="deg" x="5.78821" y="1.4642" z="0.89632"/>
+      </physvol>
+      <physvol name="MimosaSensor_PV40x1f2b990">
+        <volumeref ref="MimosaSensor_LV40x1f2b8c0"/>
+        <position name="MimosaSensor_PV40x1f2b990_pos" unit="mm" x="1.09082" y="0.38794" z="60"/>
+        <rotation name="MimosaSensor_PV40x1f2b990_rot" unit="deg" x="6.67812" y="1.62289" z="1.23439"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV40x1f2bb40">
+        <volumeref ref="MimosaSensorMetal_LV40x1f2ba70"/>
+        <position name="MimosaSensorMetal_PV40x1f2bb40_pos" unit="mm" x="1.09064297613056" y="0.388666602737322" z="60.0062057251846"/>
+        <rotation name="MimosaSensorMetal_PV40x1f2bb40_rot" unit="deg" x="6.67812" y="1.62289" z="1.23439"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV40x1f2bdb0">
+        <volumeref ref="MimosaSensorSubstrate_LV40x1f2bc50"/>
+        <position name="MimosaSensorSubstrate_PV40x1f2bdb0_pos" unit="mm" x="1.09149269069331" y="0.385178909641485" z="59.9764182446684"/>
+        <rotation name="MimosaSensorSubstrate_PV40x1f2bdb0_rot" unit="deg" x="6.67812" y="1.62289" z="1.23439"/>
+      </physvol>
+      <physvol name="MimosaSensor_PV50x1f2c240">
+        <volumeref ref="MimosaSensor_LV50x1f2c170"/>
+        <position name="MimosaSensor_PV50x1f2c240_pos" unit="mm" x="1.58598" y="0.20983" z="90"/>
+        <rotation name="MimosaSensor_PV50x1f2c240_rot" unit="deg" x="8.14073" y="1.91314" z="0.63561"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV50x1f2c3f0">
+        <volumeref ref="MimosaSensorMetal_LV50x1f2c320"/>
+        <position name="MimosaSensorMetal_PV50x1f2c3f0_pos" unit="mm" x="1.58577132670857" y="0.210714626244287" z="90.0061841899971"/>
+        <rotation name="MimosaSensorMetal_PV50x1f2c3f0_rot" unit="deg" x="8.14073" y="1.91314" z="0.63561"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV50x1f2c5d0">
+        <volumeref ref="MimosaSensorSubstrate_LV50x1f2c500"/>
+        <position name="MimosaSensorSubstrate_PV50x1f2c5d0_pos" unit="mm" x="1.58677295849501" y="0.206468420324436" z="89.9765000783796"/>
+        <rotation name="MimosaSensorSubstrate_PV50x1f2c5d0_rot" unit="deg" x="8.14073" y="1.91314" z="0.63561"/>
+      </physvol>
+      <physvol name="MimosaSensor_PV60x1f2cac0">
+        <volumeref ref="MimosaSensor_LV60x1f2c9f0"/>
+        <position name="MimosaSensor_PV60x1f2cac0_pos" unit="mm" x="1.92449" y="0.06891" z="105"/>
+        <rotation name="MimosaSensor_PV60x1f2cac0_rot" unit="deg" x="-8.79744" y="-2.05419" z="1.00964"/>
+      </physvol>
+      <physvol name="MimosaSensorMetal_PV60x1f2cc70">
+        <volumeref ref="MimosaSensorMetal_LV60x1f2cba0"/>
+        <position name="MimosaSensorMetal_PV60x1f2cc70_pos" unit="mm" x="1.92471405177329" y="0.0679546332267496" z="105.006173118271"/>
+        <rotation name="MimosaSensorMetal_PV60x1f2cc70_rot" unit="deg" x="-8.79744" y="-2.05419" z="1.00964"/>
+      </physvol>
+      <physvol name="MimosaSensorSubstrate_PV60x1f2ced0">
+        <volumeref ref="MimosaSensorSubstrate_LV60x1f2ce00"/>
+        <position name="MimosaSensorSubstrate_PV60x1f2ced0_pos" unit="mm" x="1.92363860327486" y="0.0725403936814072" z="104.976542150939"/>
+        <rotation name="MimosaSensorSubstrate_PV60x1f2ced0_rot" unit="deg" x="-8.79744" y="-2.05419" z="1.00964"/>
+      </physvol>
+    </volume>
+  </structure>
+
+  <setup name="Default" version="1.0">
+    <world ref="World0x1f1f050"/>
+  </setup>
+
+</gdml>

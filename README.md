@@ -1,79 +1,154 @@
-## **Please read this first**
-Since the SiTrInEo is now developed using cmake, please change to "Develop" branch and follow README in that bracnh.
+MimosaSimu framework
+====================
+MimosaSimu is a simulation framework for the SiTrInEo project which is built based on the Geant4. 
+Unfortunately for now, using cmake tool to install MimosaSimu is only work on private machine.
+But we will develop this to work on lxplus or other servers.
 
-How to install MimosaSimu 
-=================================
+Pre-requisite
+- Xerces-C, qt, qt-devel, qt3, libXi, libGL : for Geant4 graphic tools
+- cmake > 3.9.0 (Recommended), ROOT: the latest version
+- Geant4: the latest version
 
-There are two options to use MimosaSimu. <br>
+### Install pre-requisite libraries
+The commands are based on Cern Centos7 (CC7).
 
-Install
--------
+```
+yum -y update
+yum -y groupinstall "Development Tools"
+yum -y install expat.x86_64 expat-devel.x86_64
+yum -y install qt qt-devel
+yum -y install libXmu.x86_64 libXmu-devel.x86_64
+yum -y install xerces-c-devel.x86_64
+```
 
-### Lxplus
-Run in Lxplus machine. To set up environment, type this: 
-<blockquote>
-<p> source Mimosa-lxplus-setup.sh</p>
-</blockquote>
+Commnads for Ubuntu machine:
 
-### Private machine
-To run in your own machine. You have to install pre-requisite libraries and programs. 
-<li> Xerces-C(libxerces-c), qt, qt-devel, qt3, libXi, libGL </li>
-<li> CLHEP > 2.1.x.x, cmake > 3.9.0(Necessary!), ROOT 5.34(Not available with ROOT 6) </li>
-<li> Install Geant4 (4.9.x or 4.10.x) </li> 
-<li> Use 'ccmake' command and set install options as picture </li>
+```
+apt-get update
+apt-get upgrade
+apt install build-essential
+apt install libqt4-dev
+apt install libxmu-dev
+apt install libxerces-c-dev
+apt install libcanberra-gtk-module libcanberra-gtk3-module
+```
 
-![Option](./image/screenshot.png)
+### Install CMake and set ccmake configuration
+```
+wget https://cmake.org/files/v3.9/cmake-3.9.5-Linux-x86_64.tar.gz
+tar -zxvf cmake-3.9.5-Linux-x86_64.tar.gz
+```
+When do clone the SiTrInEo git repository, you can find SetupScripts directory.
+```
+git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+cd SetupScripts
+vi cmake_setup.sh # please use your prefer editor.
+```
+Change the path to your Cmake area.
+```
+source cmake_setup.sh
+```
 
-<li> Open Mimosa-private-setup.sh and change path to fit your own machine</li>    
-<li> Then, type command:</li>
-<blockquote>
-<p> source Mimosa-private-setup.sh</p>
-</blockquote>
+## How to install Geant4 
 
-<!--
-### KNU Tier3 server
-Pre-requisite library: Xerces-C <br>
-<blockquote>
-<p> wget https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.1.1.tar.gz </p>
-<p> tar -zxvf xerces-c-3.1.1.tar.gz </p>
-<p> cd xerces-c-3.1.1 </p>
-<p> ./configure -prefix=path/to/build/directory </p>
-<p> make -j3 </p>
-<p> make install </p>
-</blockquote>
-<br>
+Download the latest Geant4 version, [Geant4 download link](https://github.com/Geant4/geant4/archive/v10.5.1.tar.gz)
 
-Open ~/.bashrc and set environments <br>
-export SCRAM\_ARCH=slc6\_amd64\_gcc480 <br>
+```
+export QT_QMAKE_EXECUTABLE=/usr/bin/qmake-qt4
+```
 
-Install CMSSW\_6\_2\_0 version <br>
-<blockquote>
-<p> source /cvmfs/cms.cern.ch/cmsset\_default.sh </p> 
-<p> scramv1 project CMSSW CMSSW\_6\_2\_0 </p>
-<p> cd CMSSW\_6\_2\_0/src </p>
-<p> cmsenv </p>
-</blockquote>
-<br>
+Let's install Geant4 in user area
+```
+cd ~
+mkdir Software && cd Software
+mkdir Geant4 && cd Geant4
+mkdir build src install
+mv download.Geant4.source.tar.gz src // download.Geant4.source is just arbitrary name
+cd src
+tar -zxvf download.Geant4.source.tar.gz
+cd ../build
+ccmake ../src/geant4.10.05
+```
 
-Set Geant4 environment 
-<blockquote>
-<p> XERCES_INCLUDE_DIR = path/to/build/xerces-c-3.1.1 </p>
-<p> XERCES_LIBRARY = path/to/build/xerces-c-3.1.1/lib/libxerces-c-3.1.so </p>
-</blockquote>
+Follow the configuration as below example:
+![geant4configure](https://user-images.githubusercontent.com/35092541/53545505-07368b80-3b6d-11e9-9397-58262f1c127c.png)
 
-![Option](./image/KNU-Tier3.png)
--->
+CMAKE\_INSTALL\_PREFIX: path to where you want to install Geant4, recommended: /path/to/Software/Geant4/install  
+Press 'c' until you can press 'g' to generate
 
-### Common
-<li> Below commands are the same to both Lxplus and private machine </li>
-<blockquote>
-<p> cd MIMOSA\_DIGITIZER/trunk</p>
-<p> source Complie.sh</p>
-<p> cd ../../TestBeam\_Geant4Simu/trunk</p>
-<p> source Settings.sh</p>
-<p> source Complie.sh</p>
-</blockquote>
+```
+make -j 4 && make install
+source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh
+```
 
-<li> Follow README in TestBeam\_Geant4Simu/trunk</li>
+### Install ROOT
+
+Example with ROOT 6.16.00 (2019.01.28), [ROOT download link](https://root.cern.ch/content/release-61600)
+
+After go the website via link, find a tab "Binary distribution".
+Check your platform and compare with the uploaded files.
+Here I recommend you use CC7. 
+If you're platform is not listed, you should install using source distribution.
+I assumed that you are using CC7.
+
+```
+wget https://root.cern/download/root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
+tar -zxvf root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz
+cd root/bin
+source thisroot.sh # tcsh for csh
+```
+
+Install root from source distribution:  
+First please find this link to install pre-requisite libraries for ROOT framework.  
+[ROOT pre-requisties](https://root.cern.ch/build-prerequisites)
+
+```
+wget https://root.cern/download/root_v6.16.00.source.tar.gz
+tar -zxvf root_v6.16.00.source.tar.gz
+mkdir build src
+mv root-6.16.00 src
+cd build
+ccmake ../src/root-6.16.00
+```
+
+Proceed the same process when you install Geant4.
+
+After setting ROOT environments, move on to install SiTrInEo.
+
+### Install MimosaSimu
+
+Clone "Develop" branch in git repository
+```
+git clone -b Develop git@github.com:Quantumapple/SiTrInEo.git
+mkdir build
+cd build
+ccmake ../SiTrInEo
+```
+After ccmake command, you can see the new screen.
+Just press "c" to cofigure and press agian.
+If you can see "g" to generate at below, press g.
+Then
+```
+make -j 2(4) # depend on your machine
+```
+
+## How to run MimosaSimu framework
+I recommend you to setup your new command.
+For example
+```
+alias MimosaSimu=/path/to/the/build/directory/TestBeam_Geant4Simu_MagField/MimosaSimu
+```
+**Caution: You must check that before running MimosaSimu, you should set environment for ROOT and Geant4 together!**  
+
+Then
+```
+cd ../../SiTrInEo/TestBeam_Geant4Simu_MagField
+source /path/to/Software/Geant4/install/share/Geant4-10.5.0/geant4make/geant4make.sh  
+source /path/to/root/bin/thisroot.sh  
+MimosaSimu config/runXXX.cfg.Combine
+```
+
+
+
 
 
