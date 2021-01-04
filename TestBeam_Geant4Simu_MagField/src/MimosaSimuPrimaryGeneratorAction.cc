@@ -561,6 +561,7 @@ void MimosaSimuPrimaryGeneratorAction::FillParticleMap(void) {
     particle_map[TString("proton")]      = particleTable->FindParticle("proton");
     particle_map[TString("anti-proton")] = particleTable->FindParticle("anti_proton");
     particle_map[TString("gamma")]       = particleTable->FindParticle("gamma");
+	particle_map[TString("muon")]        = particleTable->FindParticle("mu-");
 
     return;
 }
